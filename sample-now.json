@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "NOTION_TOKEN": "yourToken",
+      "BLOG_INDEX_ID": "yourBlogIndexId"
+    }
+  },
+  "env": {
+    "NOTION_TOKEN": "yourToken",
+    "BLOG_INDEX_ID": "yourBlogIndexId"
+  }
+}
