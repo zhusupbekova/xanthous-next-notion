@@ -4,6 +4,7 @@ import Footer from '../components/layouts/footer'
 import { IntlProvider } from 'react-intl'
 import en from '../data/i18n/en_US'
 import zh from '../data/i18n/zh_CN'
+import { useRouter } from 'next/router'
 
 const i18n = {
   messages: {
@@ -12,13 +13,18 @@ const i18n = {
   },
 }
 
-const App = ({ Component, pageProps }) => (
-  <IntlProvider locale={'en'} messages={i18n.messages['en'] as any}>
-    <GlobalStyles />
-    <Component {...pageProps} />
-    <Footer />
-  </IntlProvider>
-)
+const App = ({ Component, pageProps }) => {
+  const router = useRouter()
+  const lang = (router.query.lang as string) || 'en'
+  // const langKey = props.langKey || 'en'
+  return (
+    <IntlProvider locale={lang} messages={i18n.messages[lang] as any}>
+      <GlobalStyles />
+      <Component {...pageProps} />
+      <Footer />
+    </IntlProvider>
+  )
+}
 
 // App.getInitialProps = async ({ Component, ctx }) => {
 //   const language = configureLanguage(ctx)
