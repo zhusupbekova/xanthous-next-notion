@@ -20,7 +20,7 @@ class MyDocument extends Document<{ styleTags: any }> {
 
   render() {
     return (
-      <Html lang="en">
+      <Html>
         <Head>{this.props.styleTags}</Head>
         <body>
           <Main />
@@ -32,3 +32,4 @@ class MyDocument extends Document<{ styleTags: any }> {
 }
 
 export default MyDocument
+// html  lang="en"

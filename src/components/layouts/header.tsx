@@ -94,10 +94,9 @@ const navItems: { label: string; page: string; exact?: boolean }[] = [
 
 const ogImageUrl = 'https://notion-blog.now.sh/og-image.png'
 
-export default ({ titlePre = '', langKey = '', slug = '' }) => {
+export default ({ titlePre, langKey, slug }) => {
   const { pathname } = useRouter()
-  const linkPrefix = langKey === 'en' ? '' : langKey
-
+  const linkPrefix = langKey
   return (
     <SiteHeader>
       <Head>
@@ -121,8 +120,8 @@ export default ({ titlePre = '', langKey = '', slug = '' }) => {
         <NavStyles>
           {navItems.map(({ label, page, exact }) => (
             <SiteNavItem key={label}>
-              <Link href={`${linkPrefix}${page}`}>
-                <MenuLink>{label}</MenuLink>
+              <Link href={`/${linkPrefix}${page}`}>
+                <a>{label}</a>
               </Link>
             </SiteNavItem>
           ))}

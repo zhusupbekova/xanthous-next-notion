@@ -1,17 +1,28 @@
 import Link from 'next/link'
-import Header from '../../components/layouts/header'
+import Header from '../../../components/layouts/header'
 
-import blogStyles from '../../styles/blog.module.css'
-import sharedStyles from '../../styles/shared.module.css'
+import blogStyles from '../../../styles/blog.module.css'
+import sharedStyles from '../../../styles/shared.module.css'
 
 import {
   getBlogLink,
   getDateStr,
   postIsPublished,
-} from '../../lib/blog-helpers'
-import { textBlock } from '../../lib/notion/renderers'
-import getNotionUsers from '../../lib/notion/getNotionUsers'
-import getBlogIndex from '../../lib/notion/getBlogIndex'
+} from '../../../lib/blog-helpers'
+import { textBlock } from '../../../lib/notion/renderers'
+import getNotionUsers from '../../../lib/notion/getNotionUsers'
+import getBlogIndex from '../../../lib/notion/getBlogIndex'
+import { useRouter } from 'next/router'
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { lang: 'en' } },
+      { params: { lang: 'zh' } }, // See the "paths" section below
+    ],
+    fallback: false, // See the "fallback" section below
+  }
+}
 
 export async function getStaticProps({ preview }) {
   const postsTable = await getBlogIndex()
@@ -48,9 +59,11 @@ export async function getStaticProps({ preview }) {
 }
 
 export default ({ posts = [], preview }) => {
+  const router = useRouter()
+  const { lang } = router.query
   return (
     <>
-      <Header titlePre="Blog" />
+      <Header titlePre="Blog" langKey={lang} slug="/blog" />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
