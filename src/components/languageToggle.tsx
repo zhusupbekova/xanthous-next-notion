@@ -10,7 +10,7 @@ export interface LanguageToggleProps {
 
 const LanguageToggle: React.FunctionComponent<LanguageToggleProps> = props => {
   return (
-    <Link href={`${props.langKey === 'en' ? '/zh' : 'en'}${props.slug || ''}`}>
+    <Link href={`/${props.langKey === 'en' ? 'zh' : 'en'}${props.slug || ''}`}>
       <div className={styles.wrapper}>
         {props.langKey === 'en' ? '中文' : 'English'}
         <DoubleArrow />

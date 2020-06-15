@@ -121,7 +121,7 @@ export default ({ titlePre, langKey, slug }) => {
           {navItems.map(({ label, page, exact }) => (
             <SiteNavItem key={label}>
               <Link href={`/${linkPrefix}${page}`}>
-                <a>{label}</a>
+                <MenuLink>{label}</MenuLink>
               </Link>
             </SiteNavItem>
           ))}
