@@ -1,12 +1,12 @@
 {
   "build": {
     "env": {
-      "NOTION_TOKEN": "@notion-token",
-      "BLOG_INDEX_ID": "@blog-index-id"
+      "NOTION_TOKEN": "b318b223d7b355b4b247ead26960c916ac3eb206b4c352aa950594abb17e56978a4b099df945d41d1482da4bdf0f3b0c78da160553ffe973b6e442bc37093900c21595cdb04862631fee1e68547c",
+      "BLOG_INDEX_ID": "0881777a-3291-4830-b9ae-61a904329419"
     }
   },
   "env": {
-    "NOTION_TOKEN": "@notion-token",
-    "BLOG_INDEX_ID": "@blog-index-id"
+    "NOTION_TOKEN": "b318b223d7b355b4b247ead26960c916ac3eb206b4c352aa950594abb17e56978a4b099df945d41d1482da4bdf0f3b0c78da160553ffe973b6e442bc37093900c21595cdb04862631fee1e68547c",
+    "BLOG_INDEX_ID": "0881777a-3291-4830-b9ae-61a904329419"
   }
 }

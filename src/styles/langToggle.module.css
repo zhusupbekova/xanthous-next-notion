@@ -1,0 +1,20 @@
+.wrapper {
+  display: block;
+  color: #fff;
+  border-radius: 10px;
+  opacity: 0.8;
+  margin-left: 60px;
+  font-family: Saira;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 12px;
+
+  @media (max-width: 1000px) {
+    margin-left: 30px;
+  }
+}
+.wrapper :hover {
+  text-decoration: none;
+  opacity: 1;
+  cursor: pointer;
+}
