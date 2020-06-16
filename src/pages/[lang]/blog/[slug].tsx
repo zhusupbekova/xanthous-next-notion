@@ -5,7 +5,7 @@ import Header from '../../../components/layouts/header'
 import Heading from '../../../components/heading'
 import components from '../../../components/dynamic'
 import ReactJSXParser from '@zeit/react-jsx-parser'
-import blogStyles from '../../styles/blog.module.css'
+import blogStyles from '../../../styles/blog.module.css'
 import { textBlock } from '../../../lib/notion/renderers'
 import getPageData from '../../../lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
@@ -76,7 +76,8 @@ export async function getStaticPaths() {
   return {
     paths: Object.keys(postsTable)
       .filter(post => postsTable[post].Published === 'Yes')
-      .map(slug => getBlogLink(slug)),
+      // TODO add langs to notion table & render posts in both langs
+      .map(slug => getBlogLink(slug, 'en')),
     fallback: true,
   }
 }
@@ -85,6 +86,8 @@ const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
 const RenderPost = ({ post, redirect, preview }) => {
   const router = useRouter()
+  const { lang, slug } = router.query
+  console.log(slug)
 
   let listTagName: string | null = null
   let listLastId: string | null = null
@@ -138,7 +141,7 @@ const RenderPost = ({ post, redirect, preview }) => {
 
   return (
     <>
-      <Header titlePre={post.Page} />
+      <Header titlePre={post.Page} langKey={lang} slug={`/blog/${slug}`} />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>

@@ -1,7 +1,26 @@
 import React from 'react'
 import Link from 'next/link'
+import styled from 'styled-components'
 import DoubleArrow from '../components/svgs/doubleArrow'
-import styles from '../styles/langToggle.module.css'
+
+const Wrapper = styled.div`
+  display: block;
+  color: #fff;
+  border-radius: 10px;
+  opacity: 0.8;
+  font-family: Saira;
+  font-weight: normal;
+  font-size: 16px;
+  width: 50px;
+  @media (max-width: 1000px) {
+    margin-left: 30px;
+  }
+  :hover {
+    text-decoration: none;
+    opacity: 1;
+    cursor: pointer;
+  }
+`
 
 export interface LanguageToggleProps {
   langKey: string
@@ -11,10 +30,12 @@ export interface LanguageToggleProps {
 const LanguageToggle: React.FunctionComponent<LanguageToggleProps> = props => {
   return (
     <Link href={`/${props.langKey === 'en' ? 'zh' : 'en'}${props.slug || ''}`}>
-      <div className={styles.wrapper}>
-        {props.langKey === 'en' ? '中文' : 'English'}
-        <DoubleArrow />
-      </div>
+      <a>
+        <Wrapper>
+          {props.langKey === 'en' ? '中文' : 'English'}
+          <DoubleArrow />
+        </Wrapper>
+      </a>
     </Link>
   )
 }

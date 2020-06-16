@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { colors } from './colors'
-import config from '../../config/website-config'
+import config from '../../data/config/website-config'
 import Facebook from '../svgs/social/facebook'
 import Twitter from '../svgs/social/twitter'
 import Medium from '../svgs/social/medium'
@@ -77,7 +77,7 @@ const Footer: React.FunctionComponent = () => {
       </section>
       <SiteFooterNav>
         <SocialLinks>
-          <SocialLinkItem
+          {/* <SocialLinkItem
             path={config.facebook}
             title="Facebook"
             svg={<Facebook />}
@@ -96,7 +96,7 @@ const Footer: React.FunctionComponent = () => {
             path={config.github}
             title="GitHub"
             svg={<GitHub />}
-          />
+          /> */}
           <SocialLinkItem path={config.rss} title="RSS" svg={<RSS />} />
         </SocialLinks>
       </SiteFooterNav>

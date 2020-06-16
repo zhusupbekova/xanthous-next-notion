@@ -14,13 +14,17 @@
   },
   "dependencies": {
     "@zeit/react-jsx-parser": "^2.0.0",
+    "emotion": "^10.0.27",
+    "fs": "^0.0.1-security",
     "github-slugger": "^1.2.1",
     "next": "^9.3.2",
+    "nprogress": "^0.2.0",
     "prismjs": "^1.17.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-intl": "^4.6.9",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "yaml-js": "^0.2.3"
   },
   "devDependencies": {
     "@types/node": "^13.1.2",

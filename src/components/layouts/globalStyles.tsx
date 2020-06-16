@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { colors } from './colors'
 // tslint:disable-next-line:no-unused-expression
 export const GlobalStyles = createGlobalStyle`
@@ -492,4 +492,9 @@ a.saira {
   font-family: Saira;
 }
 
+`
+export const MainWrapper = styled.div`
+  max-width: 1290px;
+  margin: auto;
+  min-height: 800px;
 `

@@ -6,6 +6,7 @@ import Features from '../../components/features'
 import GitHub from '../../components/svgs/github'
 import sharedStyles from '../styles/shared.module.css'
 import { useRouter } from 'next/router'
+import { MainWrapper } from '../../components/layouts/globalStyles'
 
 export default () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ export default () => {
   return (
     <>
       <Header titlePre="Home" langKey={lang as string} slug="" />
-      <div>
+      <MainWrapper>
         <img
           src="/zeit-and-notion.png"
           height="85"
@@ -67,7 +68,7 @@ export default () => {
             to go!
           </p>
         </div>
-      </div>
+      </MainWrapper>
     </>
   )
 }
