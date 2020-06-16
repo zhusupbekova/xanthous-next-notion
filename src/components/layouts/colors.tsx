@@ -17,4 +17,5 @@ export const colors = {
   darkyellow: '#735D13',
   textgray: '#626262',
   quotegray: '#e4e4e4',
+  fadedwhite: '#f8f8f8',
 }

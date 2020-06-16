@@ -21,7 +21,13 @@ class MyDocument extends Document<{ styleTags: any }> {
   render() {
     return (
       <Html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Sarala:wght@300;400;500;600;700;800&family=Saira:wght@300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+          />
+          {this.props.styleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />

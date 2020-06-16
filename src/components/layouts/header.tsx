@@ -13,14 +13,19 @@ import { XanthousLogo } from '../svgs/xanthousLogo'
 
 const SiteHeader = styled.header`
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  padding: 12px 60px;
   color: #fff;
   height: 50px;
   background: ${colors.gray};
   background-size: cover;
+`
+
+const Wrapper = styled.div`
+  max-width: 1350px;
+  margin: auto;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 `
 
 const SiteNavLeft = styled.div`
@@ -68,10 +73,12 @@ const NavStyles = styled.ul`
   }
   li a {
     display: block;
-    margin: 0;
-    padding: 10px 12px;
+    margin-left: 40px;
+    /* color: ${colors.fadedwhite}; */
     color: #fff;
-    opacity: 0.8;
+    opacity: 0.85;
+    font-family: Saira;
+    font-size: 16px;
   }
   li a:hover {
     text-decoration: none;
@@ -114,31 +121,33 @@ export default ({ titlePre, langKey, slug }) => {
       <Head>
         <title>{titlePre ? `${titlePre} |` : ''} Xanthous Tech</title>
         <meta name="description" content={config.description} />
-        <meta name="og:title" content="My Notion Blog" />
+        <meta name="og:title" content={config.title} />
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:site" content="@_ijjk" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={config.siteUrl} />
       </Head>
-      <SiteNavLeft>
-        <SiteNavLogo>
-          <XanthousLogo />
-        </SiteNavLogo>
-      </SiteNavLeft>
-      <SiteNavRight>
-        <NavStyles>
-          {navItems.map(({ label, page, exact }) => (
-            <li key={label} className={currentSlug(exact, `${page}`)}>
-              <Link href={`/${linkPrefix}${page}`}>
-                <a>{label}</a>
-              </Link>
+      <Wrapper>
+        <SiteNavLeft>
+          <SiteNavLogo>
+            <XanthousLogo />
+          </SiteNavLogo>
+        </SiteNavLeft>
+        <SiteNavRight>
+          <NavStyles>
+            {navItems.map(({ label, page, exact }) => (
+              <li key={label} className={currentSlug(exact, `${page}`)}>
+                <Link href={`/${linkPrefix}${page}`}>
+                  <a>{label}</a>
+                </Link>
+              </li>
+            ))}
+            <li>
+              <LanguageToggle langKey={langKey} slug={slug} />
             </li>
-          ))}
-          <li>
-            <LanguageToggle langKey={langKey} slug={slug} />
-          </li>
-        </NavStyles>
-      </SiteNavRight>
+          </NavStyles>
+        </SiteNavRight>
+      </Wrapper>
     </SiteHeader>
   )
 }

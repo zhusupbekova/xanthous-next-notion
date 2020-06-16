@@ -11,14 +11,8 @@ import RSS from '../svgs/social/rss'
 
 const SiteFooter = styled.footer`
   position: relative;
-  padding: 43px 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   color: ${colors.midgrey};
   font-size: 1.3rem;
-  max-width: 1260px;
   background: ${colors.backgroundgray};
   margin: auto;
   a {
@@ -27,6 +21,15 @@ const SiteFooter = styled.footer`
   @media (max-width: 650px) {
     flex-direction: column;
   }
+`
+
+const Wrapper = styled.div`
+  max-width: 1350px;
+  margin: auto;
+  padding: 43px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 `
 
 const SiteFooterNav = styled.nav`
@@ -71,36 +74,38 @@ const SocialLinks = styled.div`
 
 const Footer: React.FunctionComponent = () => {
   return (
-    <footer className={`${SiteFooter}`}>
-      <section>
-        <Link href="/">{config.title}</Link> &copy; {new Date().getFullYear()}
-      </section>
-      <SiteFooterNav>
-        <SocialLinks>
-          {/* <SocialLinkItem
-            path={config.facebook}
-            title="Facebook"
-            svg={<Facebook />}
-          />
-          <SocialLinkItem
-            path={config.twitter}
-            title="Twitter"
-            svg={<Twitter />}
-          />
-          <SocialLinkItem
-            path={config.medium}
-            title="Medium"
-            svg={<Medium />}
-          />
-          <SocialLinkItem
-            path={config.github}
-            title="GitHub"
-            svg={<GitHub />}
-          /> */}
-          <SocialLinkItem path={config.rss} title="RSS" svg={<RSS />} />
-        </SocialLinks>
-      </SiteFooterNav>
-    </footer>
+    <SiteFooter>
+      <Wrapper>
+        <section>
+          <Link href="/">{config.title}</Link> &copy; {new Date().getFullYear()}
+        </section>
+        <SiteFooterNav>
+          <SocialLinks>
+            <SocialLinkItem
+              path={config.facebook}
+              title="Facebook"
+              svg={<Facebook />}
+            />
+            <SocialLinkItem
+              path={config.twitter}
+              title="Twitter"
+              svg={<Twitter />}
+            />
+            <SocialLinkItem
+              path={config.medium}
+              title="Medium"
+              svg={<Medium />}
+            />
+            <SocialLinkItem
+              path={config.github}
+              title="GitHub"
+              svg={<GitHub />}
+            />
+            <SocialLinkItem path={config.rss} title="RSS" svg={<RSS />} />
+          </SocialLinks>
+        </SiteFooterNav>
+      </Wrapper>
+    </SiteFooter>
   )
 }
 
