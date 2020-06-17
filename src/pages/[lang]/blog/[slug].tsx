@@ -12,11 +12,13 @@ import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../../lib/notion/getNotionUsers'
 import { getBlogLink, getDateStr } from '../../../lib/blog-helpers'
+import { BLOG_INDEX_ID } from '../../../lib/notion/server-constants'
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug }, preview }) {
   // load the postsTable so that we can get the page's ID
-  const postsTable = await getBlogIndex()
+  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
+
   const post = postsTable[slug]
 
   // if we can't find the post or if it is unpublished and
@@ -70,7 +72,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
 
 // Return our list of blog posts to prerender
 export async function getStaticPaths() {
-  const postsTable = await getBlogIndex()
+  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
   // we fallback for any unpublished posts to save build time
   // for actually published ones
   return {

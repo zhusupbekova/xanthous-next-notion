@@ -4,12 +4,14 @@ import createTable from './createTable'
 import getTableData from './getTableData'
 import { getPostPreview } from './getPostPreview'
 import { readFile, writeFile } from '../fs-helpers'
-import { BLOG_INDEX_ID, BLOG_INDEX_CACHE } from './server-constants'
+import { BLOG_INDEX_CACHE } from './server-constants'
 
-export default async function getBlogIndex(previews = true) {
+export default async function getBlogIndex(notionPageIndexId, previews = true) {
   let postsTable: any = null
   const useCache = process.env.USE_CACHE === 'true'
-  const cacheFile = `${BLOG_INDEX_CACHE}${previews ? '_previews' : ''}`
+  const cacheFile = `${BLOG_INDEX_CACHE}${notionPageIndexId}${
+    previews ? '_previews' : ''
+  }`
 
   if (useCache) {
     try {
@@ -22,7 +24,7 @@ export default async function getBlogIndex(previews = true) {
   if (!postsTable) {
     try {
       const data = await rpc('loadPageChunk', {
-        pageId: BLOG_INDEX_ID,
+        pageId: notionPageIndexId,
         limit: 999, // TODO: figure out Notion's way of handling pagination
         cursor: { stack: [] },
         chunkNumber: 0,

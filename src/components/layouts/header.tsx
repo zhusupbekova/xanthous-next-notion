@@ -49,7 +49,7 @@ export default ({ titlePre, langKey, slug }) => {
                 </Link>
               </MenuItem>
             ))}
-            <li>
+            <li key="toggleLang">
               <LanguageToggle langKey={langKey} slug={slug} />
             </li>
           </NavStyles>

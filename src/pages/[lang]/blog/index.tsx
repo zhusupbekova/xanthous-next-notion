@@ -13,6 +13,7 @@ import { textBlock } from '../../../lib/notion/renderers'
 import getNotionUsers from '../../../lib/notion/getNotionUsers'
 import getBlogIndex from '../../../lib/notion/getBlogIndex'
 import { useRouter } from 'next/router'
+import { BLOG_INDEX_ID } from '../../../lib/notion/server-constants'
 
 export async function getStaticPaths() {
   return {
@@ -25,7 +26,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ preview }) {
-  const postsTable = await getBlogIndex()
+  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
 
   const authorsToGet: Set<string> = new Set()
   const posts: any[] = Object.keys(postsTable)

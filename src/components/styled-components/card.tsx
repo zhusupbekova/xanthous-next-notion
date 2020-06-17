@@ -39,7 +39,6 @@ const Card = ({ text }) => {
     sentence.length > maxLength
       ? sentence.substr(0, maxLength) + '...'
       : sentence
-  console.log(text)
   return (
     <CardWrapper>
       <Icon>
