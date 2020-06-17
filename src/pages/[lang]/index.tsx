@@ -5,8 +5,10 @@ import ExtLink from '../../components/ext-link'
 import Features from '../../components/features'
 import GitHub from '../../components/svgs/github'
 import sharedStyles from '../styles/shared.module.css'
+import Intro from '../../components/home/intro'
 import { useRouter } from 'next/router'
 import { MainWrapper } from '../../components/layouts/globalStyles'
+import OurClients from '../../components/home/clients'
 
 export default () => {
   const router = useRouter()
@@ -15,7 +17,9 @@ export default () => {
     <>
       <Header titlePre="Home" langKey={lang as string} slug="" />
       <MainWrapper>
-        <img
+        <Intro />
+        <OurClients />
+        {/* <img
           src="/zeit-and-notion.png"
           height="85"
           width="250"
@@ -31,9 +35,9 @@ export default () => {
           >
             SSG
           </ExtLink>
-        </h2>
+        </h2> */}
 
-        <Features />
+        {/* <Features />
 
         <div className="explanation">
           <p>
@@ -67,7 +71,7 @@ export default () => {
             After finding your token and your blog's page id you should be good
             to go!
           </p>
-        </div>
+        </div> */}
       </MainWrapper>
     </>
   )

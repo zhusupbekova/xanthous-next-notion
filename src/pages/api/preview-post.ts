@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import { getBlogLink } from '../../lib/blog-helpers'
+import { useRouter } from 'next/router'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (typeof req.query.token !== 'string') {
@@ -23,17 +24,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       props: {
         redirect: '/blog',
       },
-      revalidate: 5,
+      unstable_revalidate: 5,
     }
   }
 
   const postData = await getPageData(post.id)
-
+  const router = useRouter()
+  const { lang } = router.query
   if (!postData) {
     return res.status(401).json({ message: 'Invalid slug' })
   }
 
   res.setPreviewData({})
-  res.writeHead(307, { Location: getBlogLink(post.Slug) })
+  res.writeHead(307, { Location: getBlogLink(post.Slug, lang as string) })
   res.end()
 }

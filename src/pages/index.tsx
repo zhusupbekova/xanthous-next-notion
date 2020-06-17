@@ -6,12 +6,16 @@ import Features from '../components/features'
 import GitHub from '../components/svgs/github'
 import sharedStyles from '../styles/shared.module.css'
 import { MainWrapper } from '../components/layouts/globalStyles'
+import Intro from '../components/home/intro'
+import OurClients from '../components/home/clients'
 // import IndexLayout from '../components/layouts'
 
 export default () => (
   <>
     <Header titlePre="Home" langKey="en" slug="" />
     <MainWrapper>
+      <Intro />
+      <OurClients />
       <div className={sharedStyles.layout}>
         <img
           src="/zeit-and-notion.png"

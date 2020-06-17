@@ -1,5 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const withPlugins = require('next-compose-plugins')
+const withOptimizedImages = require('next-optimized-images')
+
 const {
   NOTION_TOKEN,
   BLOG_INDEX_ID,
@@ -41,7 +44,7 @@ if (!BLOG_INDEX_ID) {
   )
 }
 
-module.exports = {
+module.exports = withPlugins([withOptimizedImages, {}], {
   target: 'experimental-serverless-trace',
 
   webpack(cfg, { dev, isServer }) {
@@ -59,4 +62,4 @@ module.exports = {
     }
     return cfg
   },
-}
+})
