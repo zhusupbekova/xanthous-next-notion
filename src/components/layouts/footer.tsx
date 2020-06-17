@@ -24,7 +24,7 @@ const SiteFooter = styled.footer`
 `
 
 const Wrapper = styled.div`
-  max-width: 1350px;
+  max-width: 1300px;
   margin: auto;
   padding: 43px 30px;
   display: flex;

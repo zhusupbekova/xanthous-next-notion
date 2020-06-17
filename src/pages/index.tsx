@@ -8,7 +8,8 @@ import sharedStyles from '../styles/shared.module.css'
 import { MainWrapper } from '../components/layouts/globalStyles'
 import Intro from '../components/home/intro'
 import OurClients from '../components/home/clients'
-// import IndexLayout from '../components/layouts'
+import WeAre from '../components/home/weAre'
+import ProjectHightlights from '../components/home/projects'
 
 export default () => (
   <>
@@ -16,6 +17,8 @@ export default () => (
     <MainWrapper>
       <Intro />
       <OurClients />
+      <WeAre />
+      <ProjectHightlights />
       <div className={sharedStyles.layout}>
         <img
           src="/zeit-and-notion.png"

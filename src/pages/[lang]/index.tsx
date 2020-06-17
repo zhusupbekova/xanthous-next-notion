@@ -9,6 +9,8 @@ import Intro from '../../components/home/intro'
 import { useRouter } from 'next/router'
 import { MainWrapper } from '../../components/layouts/globalStyles'
 import OurClients from '../../components/home/clients'
+import WeAre from '../../components/home/weAre'
+import ProjectHightlights from '../../components/home/projects'
 
 export default () => {
   const router = useRouter()
@@ -19,6 +21,8 @@ export default () => {
       <MainWrapper>
         <Intro />
         <OurClients />
+        <WeAre />
+        <ProjectHightlights />
         {/* <img
           src="/zeit-and-notion.png"
           height="85"

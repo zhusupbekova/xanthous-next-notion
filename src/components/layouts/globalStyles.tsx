@@ -494,7 +494,7 @@ a.saira {
 
 `
 export const MainWrapper = styled.div`
-  max-width: 1350px;
+  max-width: 1300px;
   margin: auto;
   min-height: 800px;
   padding: 80px 30px;

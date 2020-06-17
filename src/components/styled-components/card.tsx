@@ -2,12 +2,6 @@ import styled from 'styled-components'
 import { colors } from '../layouts/colors'
 import ChatIcon from '../svgs/chat'
 
-// const CardWrapper = styled.div`
-//   width: 50%;
-//   display: inline-block;
-//   height: 318px;
-// `;
-
 const CardWrapper = styled.div`
   position: relative;
   display: flex;
@@ -39,17 +33,13 @@ const Icon = styled.div`
   top: -43px;
 `
 
-export interface ICard {
-  text: string
-}
-
-const Card: React.FC<ICard> = ({ text }) => {
+const Card = ({ text }) => {
   const maxLength = 220
-  const sentenceCutter = (sentence = '') =>
+  const sentenceCutter = sentence =>
     sentence.length > maxLength
       ? sentence.substr(0, maxLength) + '...'
       : sentence
-  console.log(text, sentenceCutter(text))
+  console.log(text)
   return (
     <CardWrapper>
       <Icon>

@@ -76,7 +76,7 @@ const SiteHeader = styled.header`
 `
 
 const Wrapper = styled.div`
-  max-width: 1350px;
+  max-width: 1300px;
   margin: auto;
   padding: 12px 30px;
   display: flex;
