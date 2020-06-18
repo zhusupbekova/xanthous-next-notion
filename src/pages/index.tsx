@@ -4,14 +4,22 @@ import Header from '../components/layouts/header'
 import ExtLink from '../components/ext-link'
 import Features from '../components/features'
 import GitHub from '../components/svgs/github'
+
 import sharedStyles from '../styles/shared.module.css'
+
+import { getBlogLink, getDateStr, postIsPublished } from '../lib/blog-helpers'
+import getNotionUsers from '../lib/notion/getNotionUsers'
+import getBlogIndex from '../lib/notion/getBlogIndex'
+import { BLOG_INDEX_ID } from '../lib/notion/server-constants'
+
 import { MainWrapper } from '../components/layouts/globalStyles'
 import Intro from '../components/home/intro'
 import OurClients from '../components/home/clients'
 import WeAre from '../components/home/weAre'
 import ProjectHightlights from '../components/home/projects'
+import Blog from '../components/home/blog'
 
-export default () => (
+export default ({ posts }) => (
   <>
     <Header titlePre="Home" langKey="en" slug="" />
     <MainWrapper>
@@ -19,6 +27,7 @@ export default () => (
       <OurClients />
       <WeAre />
       <ProjectHightlights />
+      <Blog posts={posts} langKey="en" />
       <div className={sharedStyles.layout}>
         <img
           src="/zeit-and-notion.png"
@@ -77,3 +86,39 @@ export default () => (
     </MainWrapper>
   </>
 )
+
+export async function getStaticProps({ preview }) {
+  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
+
+  const authorsToGet: Set<string> = new Set()
+  const posts: any[] = Object.keys(postsTable)
+    .map(slug => {
+      const post = postsTable[slug]
+      // remove draft posts in production
+      if (!preview && !postIsPublished(post)) {
+        return null
+      }
+      post.Authors = post.Authors || []
+      for (const author of post.Authors) {
+        authorsToGet.add(author)
+      }
+      return post
+    })
+    .filter(Boolean)
+
+  const { users } = await getNotionUsers([...authorsToGet])
+
+  posts.map(post => {
+    post.Authors = post.Authors.map(id => users[id].full_name)
+  })
+
+  console.log(posts)
+
+  return {
+    props: {
+      preview: preview || false,
+      posts,
+    },
+    unstable_revalidate: 10,
+  }
+}

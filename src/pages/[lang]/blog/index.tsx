@@ -87,7 +87,7 @@ export default ({ posts = [], preview }) => {
               <h3>
                 <Link
                   href="/[lang]/blog/[slug]"
-                  as={getBlogLink(post.Slug, lang as string)}
+                  as={getBlogLink(post.Slug, 'blog', lang as string)}
                 >
                   <div className={blogStyles.titleContainer}>
                     {!post.Published && (

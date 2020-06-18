@@ -19,7 +19,9 @@ const Intro = () => {
             {t['general.splash.title2']()}
           </h1>
         </Title>
-        <Text>{t['general.splash.intro-text']()}</Text>
+        <Text>
+          <p>{t['general.splash.intro-text']()}</p>
+        </Text>
         <ButtonWrapper>
           <Link href="/contact">
             <Button>{t['general.splash.lets-chat']()}</Button>
@@ -74,14 +76,19 @@ const Title = styled.div`
 
 const Text = styled.div`
   position: absolute;
-  width: 689px;
-  top: 250px;
+  width: 55%;
+  top: 230px;
   left: 30px;
   height: 96px;
   font-family: Sarala, sans-serif;
   font-size: 26px;
   line-height: 42px;
   letter-spacing: 0.8px;
+
+  @media (max-width: 1055px) {
+    font-size: 20px;
+    line-height: 30px;
+  }
 `
 const ButtonWrapper = styled.div`
   position: absolute;

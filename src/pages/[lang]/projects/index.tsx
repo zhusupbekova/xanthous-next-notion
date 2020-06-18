@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ preview }) {
   const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
 
-  console.log(projectsTable)
+  // console.log(projectsTable)
 
   const authorsToGet: Set<string> = new Set()
   const posts: any[] = Object.keys(projectsTable)
@@ -66,7 +66,7 @@ export default ({ posts = [], preview }) => {
   const { lang } = router.query
   return (
     <>
-      <Header titlePre="Blog" langKey={lang} slug="/blog" />
+      <Header titlePre="Projects" langKey={lang} slug="/projects" />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
@@ -88,8 +88,8 @@ export default ({ posts = [], preview }) => {
             <div className={blogStyles.postPreview} key={post.Slug}>
               <h3>
                 <Link
-                  href="/[lang]/blog/[slug]"
-                  as={getBlogLink(post.Slug, lang as string)}
+                  href="/[lang]/projects/[case-study]"
+                  as={getBlogLink(post.Slug, 'projects', lang as string)}
                 >
                   <div className={blogStyles.titleContainer}>
                     {!post.Published && (

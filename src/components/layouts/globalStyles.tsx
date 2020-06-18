@@ -428,9 +428,9 @@ h1 {
       font-size: 4.8rem;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   h1 {
-      font-size: 2.2rem;
+      font-size: 3rem;
   }
 }
 

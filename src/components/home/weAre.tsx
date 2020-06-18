@@ -1,14 +1,17 @@
 import styled from 'styled-components'
-import Card from '../styled-components/card'
+import { Section } from '../layouts/globalStyles'
+import Card from '../styled-components/weAreCard'
 import t from '../../data/i18n'
 
 const WeAre = () => {
   return (
-    <StyledDiv>
-      {texts.map(text => (
-        <Card key={text.id} text={text.content} />
-      ))}
-    </StyledDiv>
+    <Section>
+      <StyledDiv>
+        {texts.map(text => (
+          <Card key={text.id} text={text.content} />
+        ))}
+      </StyledDiv>
+    </Section>
   )
 }
 

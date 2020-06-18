@@ -1,23 +1,23 @@
 import Link from 'next/link'
 import fetch from 'node-fetch'
 import { useRouter } from 'next/router'
-import Header from '../../../components/layouts/header'
-import Heading from '../../../components/heading'
-import components from '../../../components/dynamic'
+import Header from '../../../../components/layouts/header'
+import Heading from '../../../../components/heading'
+import components from '../../../../components/dynamic'
 import ReactJSXParser from '@zeit/react-jsx-parser'
-import blogStyles from '../../../styles/blog.module.css'
-import { textBlock } from '../../../lib/notion/renderers'
-import getPageData from '../../../lib/notion/getPageData'
+import blogStyles from '../../../../styles/blog.module.css'
+import { textBlock } from '../../../../lib/notion/renderers'
+import getPageData from '../../../../lib/notion/getPageData'
 import React, { CSSProperties, useEffect } from 'react'
-import getBlogIndex from '../../../lib/notion/getBlogIndex'
-import getNotionUsers from '../../../lib/notion/getNotionUsers'
-import { getBlogLink, getDateStr } from '../../../lib/blog-helpers'
-import { BLOG_INDEX_ID } from '../../../lib/notion/server-constants'
+import getBlogIndex from '../../../../lib/notion/getBlogIndex'
+import getNotionUsers from '../../../../lib/notion/getNotionUsers'
+import { getBlogLink, getDateStr } from '../../../../lib/blog-helpers'
+import { PROJECT_INDEX_ID } from '../../../../lib/notion/server-constants'
 
 // Get the data for each blog post
 export async function getStaticProps({ params: { slug, lang }, preview }) {
   // load the postsTable so that we can get the page's ID
-  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
+  const postsTable = await getBlogIndex(PROJECT_INDEX_ID)
 
   const post = postsTable[slug]
   // console.log(post)
@@ -28,7 +28,7 @@ export async function getStaticProps({ params: { slug, lang }, preview }) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {
-        redirect: `/${lang}/blog`,
+        redirect: `/${lang}/projects`,
         preview: false,
       },
       unstable_revalidate: 5,
@@ -73,14 +73,14 @@ export async function getStaticProps({ params: { slug, lang }, preview }) {
 
 // Return our list of blog posts to prerender
 export async function getStaticPaths() {
-  const postsTable = await getBlogIndex(BLOG_INDEX_ID)
+  const postsTable = await getBlogIndex(PROJECT_INDEX_ID)
   // we fallback for any unpublished posts to save build time
   // for actually published ones
   return {
     paths: Object.keys(postsTable)
       .filter(post => postsTable[post].Published === 'Yes')
       // TODO add langs to notion table & render posts in both langs
-      .map(slug => getBlogLink(slug, 'blog', 'en')),
+      .map(slug => getBlogLink(slug, 'projects', 'en')),
     fallback: true,
   }
 }
@@ -90,7 +90,7 @@ const listTypes = new Set(['bulleted_list', 'numbered_list'])
 const RenderPost = ({ post, redirect, preview }) => {
   const router = useRouter()
   const { lang, slug } = router.query
-  // console.log(slug)
+  // console.log(lang, slug)
 
   let listTagName: string | null = null
   let listLastId: string | null = null
@@ -144,7 +144,7 @@ const RenderPost = ({ post, redirect, preview }) => {
 
   return (
     <>
-      <Header titlePre={post.Page} langKey={lang} slug={`/blog/${slug}`} />
+      <Header titlePre={post.Page} langKey={lang} slug={`/projects/${slug}`} />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
@@ -159,7 +159,7 @@ const RenderPost = ({ post, redirect, preview }) => {
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
         {post.Authors.length > 0 && (
-          <div className="authors">By: {post.Authors.join(' ')}</div>
+          <div className="authors">By: {post.TeamMembers.join(' ')}</div>
         )}
         {post.Date && (
           <div className="posted">Posted: {getDateStr(post.Date)}</div>
