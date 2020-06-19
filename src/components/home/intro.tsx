@@ -22,11 +22,11 @@ const Intro = () => {
         <Text>
           <p>{t['general.splash.intro-text']()}</p>
         </Text>
-        <ButtonWrapper>
-          <Link href="/contact">
-            <Button>{t['general.splash.lets-chat']()}</Button>
-          </Link>
-        </ButtonWrapper>
+        {/* <ButtonWrapper> */}
+        <Link href="/contact">
+          <Button>{t['general.splash.lets-chat']()}</Button>
+        </Link>
+        {/* </ButtonWrapper> */}
       </ImgWrapper>
     </Section>
   )
@@ -35,19 +35,23 @@ const Intro = () => {
 export default Intro
 
 const ImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   min-height: 560px;
   background-size: 650px;
   background-repeat: no-repeat;
   background-position: right;
   position: relative;
   background-image: url(${bg});
+  padding: 0 20px;
 `
 
 const Quote = styled.div`
-  position: relative;
+  position: absolute;
   width: 133px;
   height: 154px;
-  top: -50px;
+  top: -65px;
   left: -20px;
   font-family: Saira;
   font-weight: 500;
@@ -57,17 +61,13 @@ const Quote = styled.div`
 `
 
 const Title = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 30px;
   font-family: Saira;
   letter-spacing: 1px;
   color: black;
   font-size: 66px;
   line-height: 84px;
   margin-bottom: 0;
-  position: absolute;
-
+  z-index: 1;
   @media (max-width: 1200px) {
     font-size: 48px;
     line-height: 72px;
@@ -75,11 +75,8 @@ const Title = styled.div`
 `
 
 const Text = styled.div`
-  position: absolute;
   width: 55%;
-  top: 230px;
-  left: 30px;
-  height: 96px;
+  /* height: 96px; */
   font-family: Sarala, sans-serif;
   font-size: 26px;
   line-height: 42px;
@@ -90,8 +87,8 @@ const Text = styled.div`
     line-height: 30px;
   }
 `
-const ButtonWrapper = styled.div`
-  position: absolute;
-  top: 440px;
-  left: 30px;
-`
+// const ButtonWrapper = styled.div`
+//   position: absolute;
+// `
+//   top: 440px;
+//   left: 30px;

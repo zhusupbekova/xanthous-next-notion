@@ -15,9 +15,10 @@ export const Button = styled.a`
   font-weight: 600;
   font-size: 30px;
   line-height: 56px;
-  text-decoration: none;
+  cursor: pointer;
 
   :hover {
     background: ${colors.fadedyellow};
+    text-decoration: none;
   }
 `

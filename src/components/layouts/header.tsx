@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import config from '../../data/config/website-config'
 import t from '../../data/i18n'
@@ -29,15 +29,16 @@ export default ({ titlePre, langKey, slug }) => {
         <title>{titlePre ? `${titlePre} |` : ''} Xanthous Tech</title>
         <meta name="description" content={config.description} />
         <meta name="og:title" content={config.title} />
-        <meta property="og:image" content={'../svgs/xanthousLogo'} />
-        <meta name="twitter:site" content="@_ijjk" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={config.siteUrl} />
+        <meta property="og:image" content={config.logo} />
       </Head>
       <Wrapper>
         <SiteNavLeft>
           <SiteNavLogo>
-            <XanthousLogo />
+            <Link href={`/${linkPrefix}`}>
+              <a>
+                <XanthousLogo />
+              </a>
+            </Link>
           </SiteNavLogo>
         </SiteNavLeft>
         <SiteNavRight>
@@ -101,7 +102,6 @@ const SiteNavRight = styled.div`
   display: flex;
   align-items: center;
   height: 24px;
-
   @media (max-width: 700px) {
     display: none;
   }
@@ -116,7 +116,7 @@ const SiteNavLogo = styled.div`
 
 const NavStyles = styled.ul`
   display: flex;
-  margin: 0 0 0 -12px;
+  margin: 0;
   padding: 0;
   list-style: none;
 
@@ -133,6 +133,7 @@ const NavStyles = styled.ul`
     opacity: 0.85;
     font-family: Saira;
     font-size: 16px;
+    width: auto;
   }
   li a:hover {
     text-decoration: none;

@@ -11,10 +11,7 @@ const Wrapper = styled.div`
   font-family: Saira;
   font-weight: normal;
   font-size: 16px;
-  width: 50px;
-  @media (max-width: 1000px) {
-    margin-left: 30px;
-  }
+
   :hover {
     text-decoration: none;
     opacity: 1;

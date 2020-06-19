@@ -18,6 +18,7 @@ import OurClients from '../components/home/clients'
 import WeAre from '../components/home/weAre'
 import ProjectHightlights from '../components/home/projects'
 import Blog from '../components/home/blog'
+import Testimonials from '../components/home/testimonials'
 
 export default ({ posts }) => (
   <>
@@ -27,6 +28,7 @@ export default ({ posts }) => (
       <OurClients />
       <WeAre />
       <ProjectHightlights />
+      <Testimonials />
       <Blog posts={posts} langKey="en" />
       <div className={sharedStyles.layout}>
         <img

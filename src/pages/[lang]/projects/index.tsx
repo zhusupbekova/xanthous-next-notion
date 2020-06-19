@@ -31,37 +31,37 @@ export async function getStaticProps({ preview }) {
   // console.log(projectsTable)
 
   const authorsToGet: Set<string> = new Set()
-  const posts: any[] = Object.keys(projectsTable)
+  const projects: any[] = Object.keys(projectsTable)
     .map(slug => {
-      const post = projectsTable[slug]
-      // remove draft posts in production
-      if (!preview && !postIsPublished(post)) {
+      const project = projectsTable[slug]
+      // remove draft projects in production
+      if (!preview && !postIsPublished(project)) {
         return null
       }
-      post.Authors = post.Authors || []
-      for (const author of post.Authors) {
+      project.Authors = project.Authors || []
+      for (const author of project.Authors) {
         authorsToGet.add(author)
       }
-      return post
+      return project
     })
     .filter(Boolean)
 
   const { users } = await getNotionUsers([...authorsToGet])
 
-  posts.map(post => {
-    post.Authors = post.Authors.map(id => users[id].full_name)
+  projects.map(project => {
+    project.Authors = project.Authors.map(id => users[id].full_name)
   })
 
   return {
     props: {
       preview: preview || false,
-      posts,
+      projects,
     },
     unstable_revalidate: 10,
   }
 }
 
-export default ({ posts = [], preview }) => {
+export default ({ projects = [], preview }) => {
   const router = useRouter()
   const { lang } = router.query
   return (
@@ -80,36 +80,36 @@ export default ({ posts = [], preview }) => {
       )}
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
         <h1>My Notion Blog</h1>
-        {posts.length === 0 && (
-          <p className={blogStyles.noPosts}>There are no posts yet</p>
+        {projects.length === 0 && (
+          <p className={blogStyles.noposts}>There are no projects yet</p>
         )}
-        {posts.map(post => {
+        {projects.map(project => {
           return (
-            <div className={blogStyles.postPreview} key={post.Slug}>
+            <div className={blogStyles.projectPreview} key={project.Slug}>
               <h3>
                 <Link
                   href="/[lang]/projects/[case-study]"
-                  as={getBlogLink(post.Slug, 'projects', lang as string)}
+                  as={getBlogLink(project.Slug, 'projects', lang as string)}
                 >
                   <div className={blogStyles.titleContainer}>
-                    {!post.Published && (
+                    {!project.Published && (
                       <span className={blogStyles.draftBadge}>Draft</span>
                     )}
-                    <a>{post.Page}</a>
+                    <a>{project.Page}</a>
                   </div>
                 </Link>
               </h3>
-              {post.Authors.length > 0 && (
-                <div className="authors">By: {post.Authors.join(' ')}</div>
+              {project.Authors.length > 0 && (
+                <div className="authors">By: {project.Authors.join(' ')}</div>
               )}
-              {post.Date && (
-                <div className="posted">Posted: {getDateStr(post.Date)}</div>
+              {project.Date && (
+                <div className="posted">Posted: {getDateStr(project.Date)}</div>
               )}
               <p>
-                {(!post.preview || post.preview.length === 0) &&
+                {(!project.preview || project.preview.length === 0) &&
                   'No preview available'}
-                {(post.preview || []).map((block, idx) =>
-                  textBlock(block, true, `${post.Slug}${idx}`)
+                {(project.preview || []).map((block, idx) =>
+                  textBlock(block, true, `${project.Slug}${idx}`)
                 )}
               </p>
             </div>

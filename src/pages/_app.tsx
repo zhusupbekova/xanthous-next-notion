@@ -4,6 +4,8 @@ import { IntlProvider } from 'react-intl'
 import NProgress from 'nprogress'
 
 import { GlobalStyles } from '../components/layouts/globalStyles'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Footer from '../components/layouts/footer'
 import '../styles/nprogress.css'
 import en from '../data/i18n/en_US'

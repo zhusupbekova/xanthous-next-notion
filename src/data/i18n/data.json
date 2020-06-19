@@ -130,5 +130,59 @@
   "general.faq.button.live-support": { "en": "Live Support", "zh": "实时聊天" },
   "general.button.talkToUs": { "en": "Talk to us", "zh": "联系我们" },
   "page.team.title": { "en": "Team", "zh": "团队" },
-  "page.team.subtitle": { "en": "Team List", "zh": "团队列表" }
+  "page.team.subtitle": { "en": "Team List", "zh": "团队列表" },
+
+  "testimonials.sectionTitle": {
+    "en": "What the people say",
+    "zh": "人们怎么说"
+  },
+  "testimonials.amzkungfu.name": {
+    "en": "Zack Franklin",
+    "zh": "扎克·富兰克林"
+  },
+  "testimonials.amzkungfu.title": {
+    "en": "Founder & CEO, AMZKungFu",
+    "zh": "AMZKungFu创始人兼首席执行官"
+  },
+  "testimonials.amzkungfu.testimonialTitle": {
+    "en": "Some title",
+    "zh": "some title zh"
+  },
+  "testimonials.amzkungfu.testimonialContent": {
+    "en": "Simon and his team at Xanthous Tech have raised the bar for a development firm. They consistently deliver incredible results and at lightning speeds. They're also a joy to work with. Unlike other development firms, you have complete transparency into their process, and can see every code commit and track every minute. They have deep experience with Serverless framework, React, Next.JS, GatsbyJS, APIs and Modern DevOps that I haven't found anywhere else. I've almost wanted to keep them a secret because they're that good. You can stop looking for developers, Xanthous is the best you'll find anywhere.",
+    "zh": "西蒙和他在Xanthous Tech的团队提高了一家开发公司的门槛。 它们始终以闪电般的速度提供令人难以置信的结果。 与他们一起工作也很快乐。 与其他开发公司不同，您可以完全透明地了解其过程，并且可以每分钟查看和提交每个代码。 他们对无服务器框架，React，Next.JS，GatsbyJS，API和Modern DevOps具有深厚的经验，而我在其他地方都找不到。 我几乎想保守他们的秘密，因为他们是如此的好。 您可以停止寻找开发人员，Xanthous是您在任何地方都能找到的最好的。"
+  },
+  "testimonials.koch.name": { "en": "some name", "zh": "somename zh" },
+  "testimonials.koch.title": { "en": "some title", "zh": "sometitle zh" },
+  "testimonials.koch.testimonialTitle": {
+    "en": "Some testimonial title",
+    "zh": "some testimonial title zh"
+  },
+  "testimonials.koch.testimonialContent": {
+    "en": "Excellent Job. Not only does he work towards the problem description he also thinks of possible improvements or the viability of what he's working on. Would recommend.",
+    "zh": "很棒的工作。 他不仅致力于问题描述，而且还考虑可能的改进或所研究内容的可行性。 会推荐。"
+  },
+  "testimonials.amz.name": { "en": "Sean Strickling", "zh": "肖恩·斯特里克林" },
+  "testimonials.amz.title": { "en": "CEO", "zh": "AMZ首席执行官" },
+  "testimonials.amz.testimonialTitle": {
+    "en": "Some title",
+    "zh": "some testimonial title zh"
+  },
+  "testimonials.amz.testimonialContent": {
+    "en": "Xanthous Tech is rare find - their level and ability to communicate are those of highly skilled professionals, their ability to duplicate the task at hand and move it into action are skills that get the job done on time, on scope and within budget and in addition to these qualities, they are truly passionate about what he does and real pleasure to work with.",
+    "zh": "Xanthous Tech很少见-他们的水平和沟通能力是高技能的专业人员，他们具有复制手头的任务并将其付诸行动的能力，这些技能可以按时，按范围，按预算完成工作，此外 对于这些品质，他们对他的工作充满热情，并且真正享受与他合作的乐趣。"
+  },
+  "testimonials.initialView.name": { "en": "Nathan Keyes", "zh": "内森·凯斯" },
+  "testimonials.initialView.title": {
+    "en": "CTO, InitialView",
+    "zh": "InitialView首席技术官"
+  },
+  "testimonials.initialView.testimonialTitle": {
+    "en": "Some big title",
+    "zh": "somezhtitle"
+  },
+  "testimonials.initialView.testimonialContent": {
+    "en": "Simon and his team at Xanthous Tech have been phenomenal for us. He has quality people who have top-level skills and are available at the drop of a hat. I've enjoyed getting to know Haoran and having him work on everything from complex aspects of our multi-cloud architecture to the minutiae of bugs in a difficult legacy UI framework. Highly recommended for anyone who needs top-quality work across the stack done quickly!",
+    "zh": "西蒙和他在Xanthous Tech的团队对我们来说是非凡的。 他拥有高素质的人才，具有顶尖的技能，一言难尽。 我很高兴认识Haoran，并让他从事从多云体系结构的复杂方面到困难的旧UI框架中的bug细节的所有工作。 强烈建议需要快速完成整个堆栈中高质量工作的任何人！"
+  }
 }

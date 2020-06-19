@@ -29,9 +29,9 @@ const Blog = ({ posts = [], langKey }) => {
         <PostFeedLink>
           <a href="/blog" className="getMore_link">
             LEARN MORE
-            <ArrowContainer>
-              <Arrow />
-            </ArrowContainer>
+            {/* <ArrowContainer> */}
+            <Arrow />
+            {/* </ArrowContainer> */}
           </a>
         </PostFeedLink>
       </PostFeedContainer>
