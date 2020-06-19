@@ -9,25 +9,26 @@ import sharedStyles from '../styles/shared.module.css'
 
 import { getBlogLink, getDateStr, postIsPublished } from '../lib/blog-helpers'
 import getNotionUsers from '../lib/notion/getNotionUsers'
+import getNotionTeamMembers from '../lib/notion/getNotionTeamMembers'
 import getBlogIndex from '../lib/notion/getBlogIndex'
-import { BLOG_INDEX_ID } from '../lib/notion/server-constants'
+import { BLOG_INDEX_ID, PROJECT_INDEX_ID } from '../lib/notion/server-constants'
 
 import { MainWrapper } from '../components/layouts/globalStyles'
 import Intro from '../components/home/intro'
 import OurClients from '../components/home/clients'
 import WeAre from '../components/home/weAre'
 import ProjectHightlights from '../components/home/projects'
-import Blog from '../components/home/blog'
 import Testimonials from '../components/home/testimonials'
+import Blog from '../components/home/blog'
 
-export default ({ posts }) => (
+export default ({ posts, projects }) => (
   <>
     <Header titlePre="Home" langKey="en" slug="" />
     <MainWrapper>
       <Intro />
       <OurClients />
       <WeAre />
-      <ProjectHightlights />
+      <ProjectHightlights projects={projects} langKey="en" />
       <Testimonials />
       <Blog posts={posts} langKey="en" />
       <div className={sharedStyles.layout}>
@@ -114,12 +115,35 @@ export async function getStaticProps({ preview }) {
     post.Authors = post.Authors.map(id => users[id].full_name)
   })
 
-  console.log(posts)
+  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
+
+  const teamMembersToGet: Set<string> = new Set()
+  const projects: any[] = Object.keys(projectsTable)
+    .map(slug => {
+      const project = projectsTable[slug]
+      // remove draft projects in production
+      if (!preview && !postIsPublished(project)) {
+        return null
+      }
+      project.Authors = project.Authors || []
+      for (const author of project.Authors) {
+        teamMembersToGet.add(author)
+      }
+      return project
+    })
+    .filter(Boolean)
+
+  const { teamMembers } = await getNotionTeamMembers([...teamMembersToGet])
+
+  projects.map(project => {
+    project.Authors = project.Authors.map(id => teamMembers[id].full_name)
+  })
 
   return {
     props: {
       preview: preview || false,
       posts,
+      projects,
     },
     unstable_revalidate: 10,
   }

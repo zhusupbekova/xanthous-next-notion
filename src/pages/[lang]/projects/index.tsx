@@ -88,7 +88,7 @@ export default ({ projects = [], preview }) => {
             <div className={blogStyles.projectPreview} key={project.Slug}>
               <h3>
                 <Link
-                  href="/[lang]/projects/[case-study]"
+                  href="/[lang]/projects/[slug]"
                   as={getBlogLink(project.Slug, 'projects', lang as string)}
                 >
                   <div className={blogStyles.titleContainer}>

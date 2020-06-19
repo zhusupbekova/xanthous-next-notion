@@ -14,18 +14,18 @@ import getNotionUsers from '../../../../lib/notion/getNotionUsers'
 import { getBlogLink, getDateStr } from '../../../../lib/blog-helpers'
 import { PROJECT_INDEX_ID } from '../../../../lib/notion/server-constants'
 
-// Get the data for each blog post
+// Get the data for each blog project
 export async function getStaticProps({ params: { slug, lang }, preview }) {
-  // load the postsTable so that we can get the page's ID
-  const postsTable = await getBlogIndex(PROJECT_INDEX_ID)
+  // load the projectsTable so that we can get the page's ID
+  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
 
-  const post = postsTable[slug]
-  // console.log(post)
+  const project = projectsTable[slug]
+  // console.log(project)
 
-  // if we can't find the post or if it is unpublished and
+  // if we can't find the project or if it is unpublished and
   // viewed without preview mode then we just redirect to /blog
-  if (!post || (post.Published !== 'Yes' && !preview)) {
-    console.log(`Failed to find post for slug: ${slug}`)
+  if (!project || (project.Published !== 'Yes' && !preview)) {
+    console.log(`Failed to find project for slug: ${slug}`)
     return {
       props: {
         redirect: `/${lang}/projects`,
@@ -34,11 +34,11 @@ export async function getStaticProps({ params: { slug, lang }, preview }) {
       unstable_revalidate: 5,
     }
   }
-  const postData = await getPageData(post.id)
-  post.content = postData.blocks
+  const projectData = await getPageData(project.id)
+  project.content = projectData.blocks
 
-  for (let i = 0; i < postData.blocks.length; i++) {
-    const { value } = postData.blocks[i]
+  for (let i = 0; i < projectData.blocks.length; i++) {
+    const { value } = projectData.blocks[i]
     const { type, properties } = value
     if (type == 'tweet') {
       const src = properties.source[0][0]
@@ -52,34 +52,34 @@ export async function getStaticProps({ params: { slug, lang }, preview }) {
         )
         const json = await res.json()
         properties.html = json.html.split('<script')[0]
-        post.hasTweet = true
+        project.hasTweet = true
       } catch (_) {
         console.log(`Failed to get tweet embed for ${src}`)
       }
     }
   }
 
-  const { users } = await getNotionUsers(post.Authors || [])
-  post.Authors = Object.keys(users).map(id => users[id].full_name)
+  const { users } = await getNotionUsers(project.Authors || [])
+  project.Authors = Object.keys(users).map(id => users[id].full_name)
 
   return {
     props: {
-      post,
+      project,
       preview: preview || false,
     },
     unstable_revalidate: 10,
   }
 }
 
-// Return our list of blog posts to prerender
+// Return our list of blog projects to prerender
 export async function getStaticPaths() {
-  const postsTable = await getBlogIndex(PROJECT_INDEX_ID)
-  // we fallback for any unpublished posts to save build time
+  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
+  // we fallback for any unpublished projects to save build time
   // for actually published ones
   return {
-    paths: Object.keys(postsTable)
-      .filter(post => postsTable[post].Published === 'Yes')
-      // TODO add langs to notion table & render posts in both langs
+    paths: Object.keys(projectsTable)
+      .filter(project => projectsTable[project].Published === 'Yes')
+      // TODO add langs to notion table & render projects in both langs
       .map(slug => getBlogLink(slug, 'projects', 'en')),
     fallback: true,
   }
@@ -87,7 +87,7 @@ export async function getStaticPaths() {
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
-const RenderPost = ({ post, redirect, preview }) => {
+const RenderProject = ({ project, redirect, preview }) => {
   const router = useRouter()
   const { lang, slug } = router.query
   // console.log(lang, slug)
@@ -107,7 +107,7 @@ const RenderPost = ({ post, redirect, preview }) => {
     const twitterSrc = 'https://platform.twitter.com/widgets.js'
     // make sure to initialize any new widgets loading on
     // client navigation
-    if (post && post.hasTweet) {
+    if (project && project.hasTweet) {
       if ((window as any)?.twttr?.widgets) {
         ;(window as any).twttr.widgets.load()
       } else if (!document.querySelector(`script[src="${twitterSrc}"]`)) {
@@ -119,10 +119,10 @@ const RenderPost = ({ post, redirect, preview }) => {
     }
   }, [])
   useEffect(() => {
-    if (redirect && !post) {
+    if (redirect && !project) {
       router.replace(redirect)
     }
-  }, [redirect, post])
+  }, [redirect, project])
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -130,13 +130,14 @@ const RenderPost = ({ post, redirect, preview }) => {
     return <div>Loading...</div>
   }
 
-  // if you don't have a post at this point, and are not
+  // if you don't have a project at this point, and are not
   // loading one from fallback then  redirect back to the index
-  if (!post) {
+  if (!project) {
     return (
-      <div className={blogStyles.post}>
+      <div className={blogStyles.project}>
         <p>
-          Woops! didn't find that post, redirecting you back to the blog index
+          Woops! didn't find that project, redirecting you back to the blog
+          index
         </p>
       </div>
     )
@@ -144,37 +145,41 @@ const RenderPost = ({ post, redirect, preview }) => {
 
   return (
     <>
-      <Header titlePre={post.Page} langKey={lang} slug={`/projects/${slug}`} />
+      <Header
+        titlePre={project.Page}
+        langKey={lang}
+        slug={`/projects/${slug}`}
+      />
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
             <b>Note:</b>
             {` `}Viewing in preview mode{' '}
-            <Link href={`/api/clear-preview?slug=${post.Slug}`}>
+            <Link href={`/api/clear-preview?slug=${project.Slug}`}>
               <button className={blogStyles.escapePreview}>Exit Preview</button>
             </Link>
           </div>
         </div>
       )}
       <div className={blogStyles.post}>
-        <h1>{post.Page || ''}</h1>
-        {post.Authors.length > 0 && (
-          <div className="authors">By: {post.TeamMembers.join(' ')}</div>
+        <h1>{project.Page || ''}</h1>
+        {project.Authors.length > 0 && (
+          <div className="authors">By: {project.TeamMembers.join(' ')}</div>
         )}
-        {post.Date && (
-          <div className="posted">Posted: {getDateStr(post.Date)}</div>
+        {project.Date && (
+          <div className="posted">Posted: {getDateStr(project.Date)}</div>
         )}
 
         <hr />
 
-        {(!post.content || post.content.length === 0) && (
-          <p>This post has no content</p>
+        {(!project.content || project.content.length === 0) && (
+          <p>This project has no content</p>
         )}
 
-        {(post.content || []).map((block, blockIdx) => {
+        {(project.content || []).map((block, blockIdx) => {
           const { value } = block
           const { type, properties, id, parent_id } = value
-          const isLast = blockIdx === post.content.length - 1
+          const isLast = blockIdx === project.content.length - 1
           const isList = listTypes.has(type)
           let toRender = []
 
@@ -418,4 +423,4 @@ const RenderPost = ({ post, redirect, preview }) => {
   )
 }
 
-export default RenderPost
+export default RenderProject

@@ -10,7 +10,7 @@ const PostCardWrapper = styled.article`
   flex-direction: column;
   overflow: hidden;
   margin: 0 10px 40px;
-  height: 420px;
+  max-height: 420px;
   background: #f6f6f6 center center;
   background-size: cover;
   transition: all 0.5s ease;
