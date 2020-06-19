@@ -184,5 +184,11 @@
   "testimonials.initialView.testimonialContent": {
     "en": "Simon and his team at Xanthous Tech have been phenomenal for us. He has quality people who have top-level skills and are available at the drop of a hat. I've enjoyed getting to know Haoran and having him work on everything from complex aspects of our multi-cloud architecture to the minutiae of bugs in a difficult legacy UI framework. Highly recommended for anyone who needs top-quality work across the stack done quickly!",
     "zh": "西蒙和他在Xanthous Tech的团队对我们来说是非凡的。 他拥有高素质的人才，具有顶尖的技能，一言难尽。 我很高兴认识Haoran，并让他从事从多云体系结构的复杂方面到困难的旧UI框架中的bug细节的所有工作。 强烈建议需要快速完成整个堆栈中高质量工作的任何人！"
-  }
+  },
+
+  "blog.getMore": {
+    "en": "Get more out of Xanthous",
+    "zh": "充分利用Xanthous"
+  },
+  "link.learnMore": { "en": "LEARN MORE", "zh": "学到更多" }
 }

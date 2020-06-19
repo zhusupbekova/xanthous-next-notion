@@ -73,6 +73,7 @@ const Subtitle = styled.p`
 `
 
 const SliderContainer = styled.div`
+  padding-bottom: 30px;
   .slider__box {
     padding: 0;
     margin: 0;

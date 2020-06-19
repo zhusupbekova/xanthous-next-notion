@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../layouts/colors'
+import t from '../../data/i18n'
 import { Section } from '../layouts/globalStyles'
 import Arrow from '../svgs/arrow'
 import PostCard from '../styled-components/postCard'
@@ -10,28 +10,24 @@ const Blog = ({ posts = [], langKey }) => {
     <Section>
       <PostFeedContainer>
         <PostFeedTitle>
-          <Title>Get more out of Xanthous</Title>
+          <Title>{t['blog.getMore']()}</Title>
         </PostFeedTitle>
         <PostsContainer>
           {posts.slice(0, 3).map(post => {
             return <PostCard key={post.Slug} post={post} langKey={langKey} />
           })}
           <TitleContainer>
-            <Title>Get more out of Xanthous</Title>
+            <Title>{t['blog.getMore']()}</Title>
             <a href="/blog" className="getMore_link">
-              LEARN MORE
-              <div className="arrow">
-                <Arrow />
-              </div>
+              {t['link.learnMore']()}
+              <Arrow />
             </a>
           </TitleContainer>
         </PostsContainer>
         <PostFeedLink>
           <a href="/blog" className="getMore_link">
-            LEARN MORE
-            {/* <ArrowContainer> */}
+            {t['link.learnMore']()}
             <Arrow />
-            {/* </ArrowContainer> */}
           </a>
         </PostFeedLink>
       </PostFeedContainer>
@@ -43,7 +39,7 @@ export default Blog
 
 const PostFeedContainer = styled.div`
   align-content: center;
-  padding: 60px 0;
+  padding-top: 60px;
 
   .getMore_link {
     align-self: flex-end;
@@ -55,7 +51,6 @@ const PostFeedContainer = styled.div`
 
   @media (max-width: 1110px) {
     .getMore_link {
-      position: absolute;
       right: 10px;
       font-size: 20px;
       line-height: 30px;
@@ -84,6 +79,7 @@ const PostFeedLink = styled.div`
   display: none;
   @media (max-width: 1110px) {
     display: flex;
+    justify-content: flex-end;
   }
 `
 const PostFeedTitle = styled.div`

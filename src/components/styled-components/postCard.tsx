@@ -1,15 +1,43 @@
 import Link from 'next/link'
 import * as _ from 'lodash'
 import styled from 'styled-components'
-
 import { colors } from '../layouts/colors'
+
+const PostCard = ({ post, langKey }) => {
+  console.log(post, post.Image)
+  return (
+    <PostCardWrapper>
+      <Link href={`/${langKey}/blog/${post.Slug}`}>
+        <a>
+          <PostCardImage>
+            <img
+              alt={`${post.Page} cover image`}
+              style={{ height: '100%', width: '100%' }}
+              src={post.Image} //Image src should be embedded, not uploaded
+            />
+          </PostCardImage>
+        </a>
+      </Link>
+
+      <PostCardContent>
+        <Link href={`/${langKey}/blog/${post.Slug}`}>
+          <a>
+            <PostCardTitle>{post.Page}</PostCardTitle>
+          </a>
+        </Link>
+      </PostCardContent>
+    </PostCardWrapper>
+  )
+}
+
+export default PostCard
 
 const PostCardWrapper = styled.article`
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: 0 10px 40px;
+  margin: 0 10px;
   max-height: 420px;
   background: #f6f6f6 center center;
   background-size: cover;
@@ -79,32 +107,3 @@ const PostCardTitle = styled.h2`
   font-size: 30px;
   line-height: 44px;
 `
-
-const PostCard = ({ post, langKey }) => {
-  console.log(post, post.Image)
-  return (
-    <PostCardWrapper>
-      <Link href={`/${langKey}/blog/${post.Slug}`}>
-        <a>
-          <PostCardImage>
-            <img
-              alt={`${post.Page} cover image`}
-              style={{ height: '100%', width: '100%' }}
-              src={post.Image} //Image src should be embedded, not uploaded
-            />
-          </PostCardImage>
-        </a>
-      </Link>
-
-      <PostCardContent>
-        <Link href={`/${langKey}/blog/${post.Slug}`}>
-          <a>
-            <PostCardTitle>{post.Page}</PostCardTitle>
-          </a>
-        </Link>
-      </PostCardContent>
-    </PostCardWrapper>
-  )
-}
-
-export default PostCard
