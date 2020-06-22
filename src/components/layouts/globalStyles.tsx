@@ -436,7 +436,7 @@ h1 {
 
 h2 {
   margin: 1.5em 0 0.5em 0;
-  font-size: 5rem;
+  font-size: 4.8rem;
 }
 @media (max-width: 1439px) {
   h2 {
@@ -498,11 +498,14 @@ export const MainWrapper = styled.div`
   margin: auto;
   min-height: 800px;
   padding: 80px 30px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
 `
 
 export const Section = styled.section`
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* width: auto; */
 `

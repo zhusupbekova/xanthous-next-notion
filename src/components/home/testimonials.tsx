@@ -3,9 +3,8 @@ import Slider from 'react-slick'
 import t from '../../data/i18n'
 import { colors } from '../layouts/colors'
 
-import amz from '../../data/clients/amz.svg'
-import koch from '../../data/clients/koch.svg'
-import initialView from '../../data/clients/initialView.svg'
+import { testimonialsData } from '../../data/texts'
+import { Section } from '../layouts/globalStyles'
 
 const TestimonialContainer = styled.div`
   position: relative;
@@ -26,27 +25,29 @@ const TestimonialContainer = styled.div`
 
 const Testimonials = () => {
   return (
-    <TestimonialContainer>
-      <Title>
-        <h1 style={{ zIndex: 1 }}>{t['testimonials.sectionTitle']()}</h1>
-        <Quote>“</Quote>
-      </Title>
+    <Section>
+      <TestimonialContainer>
+        <Title>
+          <h1 style={{ zIndex: 1 }}>{t['testimonials.sectionTitle']()}</h1>
+          <Quote>“</Quote>
+        </Title>
 
-      <SliderContainer>
-        <Slider
-          className="slider__box"
-          dots={true}
-          infinite={true}
-          //   arrows={true}
-          autoplay={true}
-          autoplaySpeed={5000}
-        >
-          {testimonialsData.map(testimonial => (
-            <TestimonialCard key={testimonial.id} {...testimonial} />
-          ))}
-        </Slider>
-      </SliderContainer>
-    </TestimonialContainer>
+        <SliderContainer>
+          <Slider
+            className="slider__box"
+            dots={true}
+            infinite={true}
+            //   arrows={true}
+            autoplay={true}
+            autoplaySpeed={5000}
+          >
+            {testimonialsData.map(testimonial => (
+              <TestimonialCard key={testimonial.id} {...testimonial} />
+            ))}
+          </Slider>
+        </SliderContainer>
+      </TestimonialContainer>
+    </Section>
   )
 }
 
@@ -67,41 +68,6 @@ const TestimonialCard = props => (
     </div>
   </Item>
 )
-
-const testimonialsData = [
-  {
-    id: 'amzKungfu',
-    name: t['testimonials.amzkungfu.name'](),
-    title: t['testimonials.amzkungfu.title'](),
-    image: amz,
-    testimonialTitle: t['testimonials.amzkungfu.testimonialTitle'](),
-    testimonialContent: t['testimonials.amzkungfu.testimonialContent'](),
-  },
-  {
-    id: 'koch',
-    name: t['testimonials.koch.name'](),
-    title: t['testimonials.koch.name'](),
-    image: koch,
-    testimonialTitle: t['testimonials.koch.testimonialTitle'](),
-    testimonialContent: t['testimonials.koch.testimonialContent'](),
-  },
-  {
-    id: 'amz',
-    name: t['testimonials.amz.name'](),
-    title: t['testimonials.amz.title'](),
-    image: amz,
-    testimonialTitle: t['testimonials.amz.testimonialTitle'](),
-    testimonialContent: t['testimonials.amz.testimonialContent'](),
-  },
-  {
-    id: 'initialView',
-    name: t['testimonials.initialView.name'](),
-    title: t['testimonials.initialView.title'](),
-    image: initialView,
-    testimonialTitle: t['testimonials.initialView.testimonialTitle'](),
-    testimonialContent: t['testimonials.initialView.testimonialContent'](),
-  },
-]
 
 const Title = styled.div`
   position: relative;

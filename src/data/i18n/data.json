@@ -42,7 +42,7 @@
     "en": "The Apollo GraphQL platform is an implementation of GraphQL that helps you manage data from the cloud to your UI. It’s incrementally adoptable and can be layered over your existing services, including REST APIs and databases. Apollo includes two open-source libraries for the client and server, in addition to developer tooling that provides everything you need to run a graph API in production with confidence.",
     "zh": "Apollo"
   },
-  "techstack.styled components.desc": {
+  "techstack.styled-components.desc": {
     "en": "Utilising tagged template literals (a recent addition to JavaScript) and the power of CSS, styled-components allows you to write actual CSS code to style your components. It also removes the mapping between components and styles – using components as a low-level styling construct could not be easier!",
     "zh": "Styled Components"
   },
@@ -66,12 +66,12 @@
     "en": "Amazon Web Services offers reliable, scalable, and inexpensive cloud computing services. At Xanthous Tech, we have several AWS Solutions Architects with deep knowledge on how to effectively build and maintain AWS Stacks to achieve their full potential, and scale out as needed.",
     "zh": "亚马逊云服务AWS是行业领先的云服务。"
   },
-  "techstack.aws lambda.desc": {
+  "techstack.aws-lambda.desc": {
     "en": "AWS Lambda is a core computing unit in the AWS Serverless Stack. At Xanthous Tech, we know how to effectively use AWS Lambda to build complex serverless data pipelines at low cost.",
     "zh": "AWS Lambda是亚马逊云服务推出的无服务器云函数组件。"
   },
-  "techstack.aws appsync.desc": { "en": "AWS AppSync", "zh": "AWS AppSync" },
-  "techstack.spring boot.desc": { "en": "Spring Boot", "zh": "Spring Boot" },
+  "techstack.aws-appsync.desc": { "en": "AWS AppSync", "zh": "AWS AppSync" },
+  "techstack.spring-boot.desc": { "en": "Spring Boot", "zh": "Spring Boot" },
   "techstack.reactor.desc": { "en": "Reactor", "zh": "Reactor" },
   "techstack.elasticsearch.desc": {
     "en": "Elasticsearch is a distributed document-based search and analytics engine that is capable of processing millions of records of full-text documents. At Xanthous we help a lot of our clients build performant data analytics pipeline and search engine using Elasticsearch and capable of optimizing and managing large Elasticsearch clusters.",
@@ -128,6 +128,11 @@
   },
   "general.faq.button.email-support": { "en": "Email Support", "zh": "Email" },
   "general.faq.button.live-support": { "en": "Live Support", "zh": "实时聊天" },
+  "general.faq.haveProject": {
+    "en": "Have a project you want to buld with ",
+    "zh": "有一个您想承担的项目用"
+  },
+  "general.caseStudies": { "en": "Case studies", "zh": "实例探究" },
   "general.button.talkToUs": { "en": "Talk to us", "zh": "联系我们" },
   "page.team.title": { "en": "Team", "zh": "团队" },
   "page.team.subtitle": { "en": "Team List", "zh": "团队列表" },

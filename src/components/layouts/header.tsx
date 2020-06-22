@@ -61,7 +61,7 @@ export default ({ titlePre, langKey, slug }) => {
 }
 
 const navItems: { label: string; page: string; exact?: string }[] = [
-  { label: t['general.nav.home'](), page: '/', exact: '/[lang]' },
+  { label: t['general.nav.home'](), page: '', exact: '/[lang]' },
   { label: t['general.nav.projects'](), page: '/projects' },
   { label: t['general.nav.blog'](), page: '/blog' },
   { label: t['general.nav.about'](), page: '/about' },

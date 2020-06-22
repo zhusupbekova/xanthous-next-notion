@@ -62,6 +62,7 @@ export async function getStaticProps({ preview }) {
 export default ({ posts = [], preview }) => {
   const router = useRouter()
   const { lang } = router.query
+  console.log('POSTS', posts)
   return (
     <>
       <Header titlePre="Blog" langKey={lang} slug="/blog" />
@@ -81,8 +82,8 @@ export default ({ posts = [], preview }) => {
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
-        {posts.map(post => {
-          return (
+        {posts.map(post =>
+          post.Language === lang ? (
             <div className={blogStyles.postPreview} key={post.Slug}>
               <h3>
                 <Link
@@ -111,8 +112,8 @@ export default ({ posts = [], preview }) => {
                 )}
               </p>
             </div>
-          )
-        })}
+          ) : null
+        )}
       </div>
     </>
   )
