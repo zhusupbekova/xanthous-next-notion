@@ -7,7 +7,7 @@ import { techStackData } from '../../data/texts'
 
 const ProjectCard = ({ project, lang }) => {
   const projectTechStack = project.TechStack.split(',')
-  projectTechStack.map(t => console.log('HELLO', t, t.length))
+
   const currTechStack = projectTechStack.map(tech =>
     techStackData.map(matchedStack =>
       matchedStack.id === tech ? (

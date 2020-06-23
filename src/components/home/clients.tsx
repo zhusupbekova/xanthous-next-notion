@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Section } from '../layouts/globalStyles'
+import t from '../../data/i18n'
 
 import koch from '../../data/clients/koch.svg'
 import amz from '../../data/clients/amz.svg'
@@ -12,7 +13,7 @@ const OurClients = () => {
   return (
     <Section>
       <Wrapper>
-        <Title>Our clients</Title>
+        <Title>{t['general.ourClients']()}</Title>
         <ClientsWrapper>
           <div className="client">
             <img src={koch} />

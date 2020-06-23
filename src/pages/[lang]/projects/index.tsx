@@ -64,6 +64,11 @@ export async function getStaticProps({ preview }) {
 export default ({ projects = [], preview }) => {
   const router = useRouter()
   const { lang } = router.query
+
+  const filteredProjects = projects.filter(project =>
+    project.Language === lang ? project : null
+  )
+
   return (
     <>
       <Header titlePre="Projects" langKey={lang} slug="/projects" />
@@ -80,10 +85,10 @@ export default ({ projects = [], preview }) => {
       )}
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
         <h1>My Notion Blog</h1>
-        {projects.length === 0 && (
+        {filteredProjects.length === 0 && (
           <p className={blogStyles.noposts}>There are no projects yet</p>
         )}
-        {projects.map(project => {
+        {filteredProjects.map(project => {
           return (
             <div className={blogStyles.projectPreview} key={project.Slug}>
               <h3>

@@ -8,6 +8,11 @@ const ProjectHightlights = ({ projects = [], langKey }) => {
   if (!projects) {
     return null
   }
+
+  const filteredProjects = projects.filter(project =>
+    project.Language === langKey ? project : null
+  )
+
   const settings = {
     className: 'slider__box',
     dots: true,
@@ -26,7 +31,7 @@ const ProjectHightlights = ({ projects = [], langKey }) => {
       </TitleContainer>
       <SliderContainer>
         <Slider {...settings}>
-          {projects.concat(projects).map(project => (
+          {filteredProjects.concat(filteredProjects).map(project => (
             <ProjectCard key={project.id} project={project} langKey={langKey} />
           ))}
         </Slider>

@@ -136,6 +136,7 @@
   "general.button.talkToUs": { "en": "Talk to us", "zh": "联系我们" },
   "page.team.title": { "en": "Team", "zh": "团队" },
   "page.team.subtitle": { "en": "Team List", "zh": "团队列表" },
+  "general.ourClients": { "en": "Our clients", "zh": "我们的客户" },
 
   "testimonials.sectionTitle": {
     "en": "What the people say",

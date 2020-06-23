@@ -22,7 +22,7 @@ import Testimonials from '../../components/home/testimonials'
 export default ({ posts, projects }) => {
   const router = useRouter()
   const { lang } = router.query
-  console.log(lang, 'aaaaaaaaaaa')
+
   return (
     <>
       <Header titlePre="Home" langKey={lang as string} slug="" />
@@ -101,7 +101,7 @@ export async function getStaticProps({ preview }) {
     project.Authors = project.Authors.map(id => teamMembers[id].full_name)
   })
 
-  console.log(projects)
+  // console.log(projects)
 
   return {
     props: {

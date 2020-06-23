@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { colors } from '../layouts/colors'
 
 const PostCard = ({ post, langKey }) => {
-  console.log(post, post.Image)
   return (
     <PostCardWrapper>
       <Link href={`/${langKey}/blog/${post.Slug}`}>

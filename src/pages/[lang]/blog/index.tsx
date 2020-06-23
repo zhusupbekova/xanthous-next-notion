@@ -62,7 +62,8 @@ export async function getStaticProps({ preview }) {
 export default ({ posts = [], preview }) => {
   const router = useRouter()
   const { lang } = router.query
-  console.log('POSTS', posts)
+
+  // console.log('POSTS', posts)
   return (
     <>
       <Header titlePre="Blog" langKey={lang} slug="/blog" />
