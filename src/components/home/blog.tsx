@@ -5,10 +5,6 @@ import Arrow from '../svgs/arrow'
 import PostCard from '../styled-components/postCard'
 
 const Blog = ({ posts = [], langKey }) => {
-  const filteredPosts = posts.filter(post =>
-    post.Language === langKey ? post : null
-  )
-
   return (
     <Section>
       <PostFeedContainer>
@@ -16,7 +12,7 @@ const Blog = ({ posts = [], langKey }) => {
           <Title>{t['blog.getMore']()}</Title>
         </PostFeedTitle>
         <PostsContainer>
-          {filteredPosts.slice(0, 3).map(post => {
+          {posts.slice(0, 3).map(post => {
             return <PostCard key={post.Slug} post={post} langKey={langKey} />
           })}
           <TitleContainer>

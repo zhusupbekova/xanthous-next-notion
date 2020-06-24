@@ -14,6 +14,7 @@ import getNotionUsers from '../../../lib/notion/getNotionUsers'
 import getBlogIndex from '../../../lib/notion/getBlogIndex'
 import { useRouter } from 'next/router'
 import { PROJECT_INDEX_ID } from '../../../lib/notion/server-constants'
+import { getProjects } from '../../../lib/notion/getData'
 
 export async function getStaticPaths() {
   return {
@@ -25,32 +26,8 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ preview }) {
-  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
-
-  // console.log(projectsTable)
-
-  const authorsToGet: Set<string> = new Set()
-  const projects: any[] = Object.keys(projectsTable)
-    .map(slug => {
-      const project = projectsTable[slug]
-      // remove draft projects in production
-      if (!preview && !postIsPublished(project)) {
-        return null
-      }
-      project.Authors = project.Authors || []
-      for (const author of project.Authors) {
-        authorsToGet.add(author)
-      }
-      return project
-    })
-    .filter(Boolean)
-
-  const { users } = await getNotionUsers([...authorsToGet])
-
-  projects.map(project => {
-    project.Authors = project.Authors.map(id => users[id].full_name)
-  })
+export async function getStaticProps({ params, preview }) {
+  const projects = await getProjects(params.lang)
 
   return {
     props: {
@@ -64,10 +41,6 @@ export async function getStaticProps({ preview }) {
 export default ({ projects = [], preview }) => {
   const router = useRouter()
   const { lang } = router.query
-
-  const filteredProjects = projects.filter(project =>
-    project.Language === lang ? project : null
-  )
 
   return (
     <>
@@ -84,11 +57,11 @@ export default ({ projects = [], preview }) => {
         </div>
       )}
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
-        <h1>My Notion Blog</h1>
-        {filteredProjects.length === 0 && (
+        <h1>My Notion PROJECTS</h1>
+        {projects.length === 0 && (
           <p className={blogStyles.noposts}>There are no projects yet</p>
         )}
-        {filteredProjects.map(project => {
+        {projects.map(project => {
           return (
             <div className={blogStyles.projectPreview} key={project.Slug}>
               <h3>
