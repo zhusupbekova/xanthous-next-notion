@@ -12,55 +12,15 @@ import React, { CSSProperties, useEffect } from 'react'
 import getBlogIndex from '../../../../lib/notion/getBlogIndex'
 import getNotionUsers from '../../../../lib/notion/getNotionUsers'
 import { getBlogLink, getDateStr } from '../../../../lib/blog-helpers'
-import { PROJECT_INDEX_ID } from '../../../../lib/notion/server-constants'
+import {
+  PROJECT_INDEX_ID,
+  ZH_PROJECT_INDEX_ID,
+} from '../../../../lib/notion/server-constants'
+import { getProject } from '../../../../lib/notion/getData'
 
 // Get the data for each blog project
 export async function getStaticProps({ params: { slug, lang }, preview }) {
-  // load the projectsTable so that we can get the page's ID
-  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
-
-  const project = projectsTable[slug]
-  // console.log(project)
-
-  // if we can't find the project or if it is unpublished and
-  // viewed without preview mode then we just redirect to /blog
-  if (!project || (project.Published !== 'Yes' && !preview)) {
-    console.log(`Failed to find project for slug: ${slug}`)
-    return {
-      props: {
-        redirect: `/${lang}/projects`,
-        preview: false,
-      },
-      unstable_revalidate: 5,
-    }
-  }
-  const projectData = await getPageData(project.id)
-  project.content = projectData.blocks
-
-  for (let i = 0; i < projectData.blocks.length; i++) {
-    const { value } = projectData.blocks[i]
-    const { type, properties } = value
-    if (type == 'tweet') {
-      const src = properties.source[0][0]
-      // parse id from https://twitter.com/_ijjk/status/TWEET_ID format
-      const tweetId = src.split('/')[5].split('?')[0]
-      if (!tweetId) continue
-
-      try {
-        const res = await fetch(
-          `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
-        )
-        const json = await res.json()
-        properties.html = json.html.split('<script')[0]
-        project.hasTweet = true
-      } catch (_) {
-        console.log(`Failed to get tweet embed for ${src}`)
-      }
-    }
-  }
-
-  const { users } = await getNotionUsers(project.Authors || [])
-  project.Authors = Object.keys(users).map(id => users[id].full_name)
+  const project = await getProject(lang, slug)
 
   return {
     props: {
@@ -73,14 +33,23 @@ export async function getStaticProps({ params: { slug, lang }, preview }) {
 
 // Return our list of blog projects to prerender
 export async function getStaticPaths() {
-  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
+  const projectsTableEn = await getBlogIndex(PROJECT_INDEX_ID)
+  const projectsTableZh = await getBlogIndex(ZH_PROJECT_INDEX_ID)
+
+  const paths = Object.keys(projectsTableEn)
+    .filter(project => projectsTableEn[project].Published === 'Yes')
+    .map(slug => getBlogLink(slug, 'projects', 'en'))
+    .concat(
+      Object.keys(projectsTableZh)
+        .filter(project => projectsTableZh[project].Published === 'Yes')
+        .map(slug => getBlogLink(slug, 'projects', 'zh'))
+    )
+  console.log(paths)
   // we fallback for any unpublished projects to save build time
   // for actually published ones
+
   return {
-    paths: Object.keys(projectsTable)
-      .filter(project => projectsTable[project].Published === 'Yes')
-      // TODO add langs to notion table & render projects in both langs
-      .map(slug => getBlogLink(slug, 'projects', 'en')),
+    paths,
     fallback: true,
   }
 }
@@ -142,7 +111,7 @@ const RenderProject = ({ project, redirect, preview }) => {
       </div>
     )
   }
-
+  console.log(project)
   return (
     <>
       <Header
@@ -163,7 +132,7 @@ const RenderProject = ({ project, redirect, preview }) => {
       )}
       <div className={blogStyles.post}>
         <h1>{project.Page || ''}</h1>
-        {project.Authors.length > 0 && (
+        {project.TeamMembers.length > 0 && (
           <div className="authors">By: {project.TeamMembers.join(' ')}</div>
         )}
         {project.Date && (

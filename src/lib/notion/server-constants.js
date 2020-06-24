@@ -23,8 +23,6 @@ const ZH_PROJECT_INDEX_ID = normalizeId(process.env.ZH_PROJECT_INDEX_ID)
 const API_ENDPOINT = 'https://www.notion.so/api/v3'
 const BLOG_INDEX_CACHE = path.resolve('.blog_index_data')
 
-console.log(ZH_BLOG_INDEX_ID)
-
 module.exports = {
   NOTION_TOKEN,
   BLOG_INDEX_ID,

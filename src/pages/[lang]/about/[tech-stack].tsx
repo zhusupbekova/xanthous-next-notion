@@ -120,6 +120,7 @@ export async function getStaticPaths() {
   const paths = techStackData.map(stack =>
     langs.map(lang => ({ params: { 'tech-stack': stack.id, lang } }))
   )
+
   return { paths: _.flatten(paths), fallback: false }
 }
 
@@ -154,8 +155,6 @@ export async function getStaticProps({ params, preview }) {
   projects.map(project => {
     project.Authors = project.Authors.map(id => users[id].full_name)
   })
-
-  console.log('PROJECTS', projects)
 
   return {
     props: { stack, preview: preview || false, projects },
