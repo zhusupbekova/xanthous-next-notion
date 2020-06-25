@@ -58,10 +58,6 @@ class Responsive extends Component<IResponsiveProps> {
   render() {
     const { projects, stack, lang } = this.props
 
-    const filteredProjects = projects.filter(project =>
-      project.Language === lang ? project : null
-    )
-
     // Carousel settings
     const settings = {
       // className: `${SliderStyles}`,
@@ -101,7 +97,7 @@ class Responsive extends Component<IResponsiveProps> {
     return (
       <SliderWrapper>
         <Slider {...settings}>
-          {filteredProjects.reduce((acc: any[], project: any) => {
+          {projects.reduce((acc: any[], project: any) => {
             if (project.TechStack && project.TechStack.includes(stack.id)) {
               return acc.concat(
                 <ProjectCard key={project.Slug} project={project} lang={lang} />
