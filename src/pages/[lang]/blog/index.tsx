@@ -9,17 +9,20 @@ import { getBlogLink, getDateStr } from '../../../lib/blog-helpers'
 import { textBlock } from '../../../lib/notion/renderers'
 
 import { useRouter } from 'next/router'
-import { getPosts } from '../../../lib/notion/getData'
+import { getPosts, IPost } from '../../../lib/notion/getData'
 import styled from 'styled-components'
 import { authorsData } from '../../../data/texts'
 import BlogPostCard from '../../../components/styled-components/blogPostCard'
 
-export default ({ posts = [], preview }) => {
+const Blog: React.FC<{ posts: IPost[]; preview: any }> = ({
+  posts = [],
+  preview,
+}) => {
   const router = useRouter()
   const { lang } = router.query
 
   const featured = posts.filter(post => (post.Featured ? post : null)).pop()
-  const rest = posts.filter(post => !post.featured)
+  const rest = posts.filter(post => !post.Featured)
 
   return (
     <>
@@ -62,6 +65,8 @@ export default ({ posts = [], preview }) => {
     </>
   )
 }
+
+export default Blog
 
 export async function getStaticPaths() {
   return {

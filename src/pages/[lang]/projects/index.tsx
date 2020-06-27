@@ -52,7 +52,7 @@ export default ({ projects = [], preview }) => {
                     </div>
                   </Link>
                 </h3>
-                {project.TeamMembers.length > 0 && (
+                {project.Authors.length > 0 && (
                   <div className="authors">By: {project.Authors.join(' ')}</div>
                 )}
                 {project.Date && (

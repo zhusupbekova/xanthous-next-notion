@@ -3,8 +3,12 @@ import Link from 'next/link'
 import Slider from 'react-slick'
 import { Section } from '../layouts/globalStyles'
 import t from '../../data/i18n'
+import { IProject } from '../../lib/notion/getData'
 
-const ProjectHightlights = ({ projects = [], langKey }) => {
+const ProjectHightlights: React.FC<{
+  projects: IProject[]
+  langKey: string
+}> = ({ projects = [], langKey }) => {
   if (!projects) {
     return null
   }
@@ -38,7 +42,10 @@ const ProjectHightlights = ({ projects = [], langKey }) => {
 
 export default ProjectHightlights
 
-const ProjectCard = ({ project, langKey }) => (
+const ProjectCard: React.FC<{ project: IProject; langKey: string }> = ({
+  project,
+  langKey,
+}) => (
   <div className="slider__item_to_bottom">
     <div className="slider__item_box">
       <div className="slider__item">

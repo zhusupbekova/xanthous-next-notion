@@ -4,8 +4,12 @@ import _ from 'lodash'
 
 import { colors } from '../layouts/colors'
 import { techStackData } from '../../data/texts'
+import { IProject } from '../../lib/notion/getData'
 
-const ProjectCard = ({ project, lang }) => {
+const ProjectCard: React.FC<{ project: IProject; lang: string }> = ({
+  project,
+  lang,
+}) => {
   const projectTechStack = project.TechStack.split(',')
 
   const currTechStack = projectTechStack.map(tech =>
@@ -27,7 +31,7 @@ const ProjectCard = ({ project, lang }) => {
       <Link href={`/${lang}/projects/${project.Slug}`}>
         <a className="card-link">
           <ProjectCardImage
-            alt={`${project.title} cover image`}
+            alt={`${project.Page} cover image`}
             src={project.Image}
           />
           <ProjectCardContent className="post-card-content">

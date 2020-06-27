@@ -4,7 +4,10 @@ import { Section } from '../layouts/globalStyles'
 import Arrow from '../svgs/arrow'
 import PostCard from '../styled-components/postCard'
 
-const Blog = ({ posts = [], langKey }) => {
+const Blog: React.FC<{ posts: any[]; langKey: string }> = ({
+  posts = [],
+  langKey,
+}) => {
   return (
     <Section>
       <PostFeedContainer>

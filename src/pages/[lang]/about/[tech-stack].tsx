@@ -8,15 +8,14 @@ import t from '../../../data/i18n'
 import { Button } from '../../../components/styled-components/button'
 import Link from 'next/link'
 import { Component } from 'react'
-import getBlogIndex from '../../../lib/notion/getBlogIndex'
-import { PROJECT_INDEX_ID } from '../../../lib/notion/server-constants'
-import preview from '../../api/preview'
-import { postIsPublished } from '../../../lib/blog-helpers'
-import getNotionUsers from '../../../lib/notion/getNotionUsers'
 import Slider from 'react-slick'
 import ProjectCard from '../../../components/styled-components/projectCard'
+import { IProject, getProjects } from '../../../lib/notion/getData'
 
-const TechStack = ({ stack, projects }) => {
+const TechStack: React.FC<{ stack: any; projects: IProject[] }> = ({
+  stack,
+  projects,
+}) => {
   const router = useRouter()
   const { lang } = router.query
   return (
@@ -49,7 +48,7 @@ const TechStack = ({ stack, projects }) => {
 export default TechStack
 
 interface IResponsiveProps {
-  projects: any[]
+  projects: IProject[]
   stack: { id: string }
   lang: string
 }
@@ -97,7 +96,7 @@ class Responsive extends Component<IResponsiveProps> {
     return (
       <SliderWrapper>
         <Slider {...settings}>
-          {projects.reduce((acc: any[], project: any) => {
+          {projects.reduce((acc: any[], project: IProject) => {
             if (project.TechStack && project.TechStack.includes(stack.id)) {
               return acc.concat(
                 <ProjectCard key={project.Slug} project={project} lang={lang} />
@@ -125,32 +124,7 @@ export async function getStaticProps({ params, preview }) {
   const stack = techStackData.find(stack => params['tech-stack'] === stack.id)
 
   //projects data
-
-  const projectsTable = await getBlogIndex(PROJECT_INDEX_ID)
-
-  // console.log(projectsTable)
-
-  const authorsToGet: Set<string> = new Set()
-  const projects: any[] = Object.keys(projectsTable)
-    .map(slug => {
-      const project = projectsTable[slug]
-      // remove draft projects in production
-      if (!preview && !postIsPublished(project)) {
-        return null
-      }
-      project.Authors = project.Authors || []
-      for (const author of project.Authors) {
-        authorsToGet.add(author)
-      }
-      return project
-    })
-    .filter(Boolean)
-
-  const { users } = await getNotionUsers([...authorsToGet])
-
-  projects.map(project => {
-    project.Authors = project.Authors.map(id => users[id].full_name)
-  })
+  const projects = await getProjects(params.lang)
 
   return {
     props: { stack, preview: preview || false, projects },

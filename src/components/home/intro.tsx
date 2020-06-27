@@ -22,11 +22,9 @@ const Intro = () => {
         <Text>
           <p>{t['general.splash.intro-text']()}</p>
         </Text>
-        {/* <ButtonWrapper> */}
         <Link href="/contact">
           <Button>{t['general.splash.lets-chat']()}</Button>
         </Link>
-        {/* </ButtonWrapper> */}
       </ImgWrapper>
     </Section>
   )
@@ -87,8 +85,3 @@ const Text = styled.div`
     line-height: 30px;
   }
 `
-// const ButtonWrapper = styled.div`
-//   position: absolute;
-// `
-//   top: 440px;
-//   left: 30px;

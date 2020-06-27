@@ -22,6 +22,20 @@ import { getProject } from '../../../../lib/notion/getData'
 export async function getStaticProps({ params: { slug, lang }, preview }) {
   const project = await getProject(lang, slug)
 
+  // if we can't find the project or if it is unpublished and
+  // viewed without preview mode then we just redirect to /blog
+
+  if (!project || (project.Published !== 'Yes' && !preview)) {
+    console.log(`Failed to find project for slug: ${slug}`)
+    return {
+      props: {
+        redirect: `/${lang}/projects`,
+        preview: false,
+      },
+      unstable_revalidate: 5,
+    }
+  }
+
   return {
     props: {
       project,
@@ -44,7 +58,6 @@ export async function getStaticPaths() {
         .filter(project => projectsTableZh[project].Published === 'Yes')
         .map(slug => getBlogLink(slug, 'projects', 'zh'))
     )
-  console.log(paths)
   // we fallback for any unpublished projects to save build time
   // for actually published ones
 
@@ -59,7 +72,6 @@ const listTypes = new Set(['bulleted_list', 'numbered_list'])
 const RenderProject = ({ project, redirect, preview }) => {
   const router = useRouter()
   const { lang, slug } = router.query
-  // console.log(lang, slug)
 
   let listTagName: string | null = null
   let listLastId: string | null = null
@@ -111,7 +123,7 @@ const RenderProject = ({ project, redirect, preview }) => {
       </div>
     )
   }
-  console.log(project)
+
   return (
     <>
       <Header
@@ -132,8 +144,8 @@ const RenderProject = ({ project, redirect, preview }) => {
       )}
       <div className={blogStyles.post}>
         <h1>{project.Page || ''}</h1>
-        {project.TeamMembers.length > 0 && (
-          <div className="authors">By: {project.TeamMembers.join(' ')}</div>
+        {project.Authors.length > 0 && (
+          <div className="authors">By: {project.Authors.join(' ')}</div>
         )}
         {project.Date && (
           <div className="posted">Posted: {getDateStr(project.Date)}</div>

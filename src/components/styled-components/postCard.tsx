@@ -2,8 +2,12 @@ import Link from 'next/link'
 import * as _ from 'lodash'
 import styled from 'styled-components'
 import { colors } from '../layouts/colors'
+import { IPost } from '../../lib/notion/getData'
 
-const PostCard = ({ post, langKey }) => {
+const PostCard: React.FC<{ post: IPost; langKey: string }> = ({
+  post,
+  langKey,
+}) => {
   return (
     <PostCardWrapper>
       <Link href={`/${langKey}/blog/${post.Slug}`}>

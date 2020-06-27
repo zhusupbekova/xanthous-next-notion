@@ -4,11 +4,15 @@ import styled from 'styled-components'
 import { colors } from '../layouts/colors'
 import { textBlock } from '../../lib/notion/renderers'
 import { Tag } from './tag'
+import { IPost } from '../../lib/notion/getData'
 
-const BlogPostCard = ({ post, langKey }) => {
+const BlogPostCard: React.FC<{ post: IPost; langKey: string }> = ({
+  post,
+  langKey,
+}) => {
   const tags =
     post.Tags && post.Tags.length >= 1 ? post.Tags.split(',').flat() : []
-  console.log(tags.map(tag => tag))
+
   return (
     <PostCardWrapper>
       <Link href={`/${langKey}/blog/${post.Slug}`}>

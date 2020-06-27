@@ -8,10 +8,23 @@ import {
 import preview from '../../pages/api/preview'
 import { postIsPublished } from '../blog-helpers'
 import getNotionUsers from './getNotionUsers'
-import getNotionTeamMembers from './getNotionTeamMembers'
 import getPageData from './getPageData'
 
-export const getPosts = async (lang: 'en' | 'zh') => {
+export interface IPost {
+  id: string
+  Published: string
+  ReadTime: string | null
+  Date: number
+  Image: string
+  Slug: string
+  Featured: string | null
+  Tags: string
+  Authors: string[]
+  Page: string
+  preview: any[]
+}
+
+export const getPosts = async (lang: 'en' | 'zh'): Promise<IPost[]> => {
   const key = lang === 'en' ? BLOG_INDEX_ID : ZH_BLOG_INDEX_ID
   const postsTable = await getBlogIndex(key)
 
@@ -40,12 +53,27 @@ export const getPosts = async (lang: 'en' | 'zh') => {
   return posts
 }
 
-export const getProjects = async (lang: 'en' | 'zh') => {
+export interface IProject {
+  id: string
+  Published: string
+  Page: string
+  Description: string
+  Length: string | null
+  Date: number
+  Image: string
+  Slug: string
+  // Featured: string | null
+  TechStack: string
+  Authors: string[]
+  preview: any[]
+}
+
+export const getProjects = async (lang: 'en' | 'zh'): Promise<IProject[]> => {
   const key = lang === 'en' ? PROJECT_INDEX_ID : ZH_PROJECT_INDEX_ID
 
   const projectsTable = await getBlogIndex(key)
 
-  const teamMembersToGet: Set<string> = new Set()
+  const authorsToGet: Set<string> = new Set()
   const projects: any[] = Object.keys(projectsTable)
     .map(slug => {
       const project = projectsTable[slug]
@@ -55,40 +83,31 @@ export const getProjects = async (lang: 'en' | 'zh') => {
       }
       project.Authors = project.Authors || []
       for (const author of project.Authors) {
-        teamMembersToGet.add(author)
+        authorsToGet.add(author)
       }
+
       return project
     })
     .filter(Boolean)
 
-  const { teamMembers } = await getNotionTeamMembers([...teamMembersToGet])
+  const { users } = await getNotionUsers([...authorsToGet])
 
   projects.map(project => {
-    project.Authors = project.Authors.map(id => teamMembers[id].full_name)
+    project.Authors = project.Authors.map(id => users[id].full_name)
   })
 
   return projects
 }
 
-export const getPost = async (lang: 'en' | 'zh', slug) => {
+export const getPost = async (
+  lang: 'en' | 'zh',
+  slug: string
+): Promise<IPost> => {
   const key = lang === 'en' ? BLOG_INDEX_ID : ZH_BLOG_INDEX_ID
   // load the postsTable so that we can get the page's ID
   const postsTable = await getBlogIndex(key)
 
   const post = postsTable[slug]
-  // if we can't find the post or if it is unpublished and
-  // viewed without preview mode then we just redirect to /blog
-
-  if (!post || (post.Published !== 'Yes' && !preview)) {
-    console.log(`Failed to find post for slug: ${slug}`)
-    return {
-      props: {
-        redirect: `/${lang}/blog`,
-        preview: false,
-      },
-      unstable_revalidate: 5,
-    }
-  }
 
   const postData = await getPageData(post.id)
   post.content = postData.blocks
@@ -121,26 +140,16 @@ export const getPost = async (lang: 'en' | 'zh', slug) => {
   return post
 }
 
-export const getProject = async (lang: 'en' | 'zh', slug) => {
+export const getProject = async (
+  lang: 'en' | 'zh',
+  slug: string
+): Promise<IProject> => {
   const key = lang === 'en' ? PROJECT_INDEX_ID : ZH_PROJECT_INDEX_ID
   // load the postsTable so that we can get the page's ID
   const projectsTable = await getBlogIndex(key)
 
   const project = projectsTable[slug]
-  // console.log(project)
 
-  // if we can't find the project or if it is unpublished and
-  // viewed without preview mode then we just redirect to /blog
-  if (!project || (project.Published !== 'Yes' && !preview)) {
-    console.log(`Failed to find project for slug: ${slug}`)
-    return {
-      props: {
-        redirect: `/${lang}/projects`,
-        preview: false,
-      },
-      unstable_revalidate: 5,
-    }
-  }
   const projectData = await getPageData(project.id)
   project.content = projectData.blocks
 
@@ -166,8 +175,8 @@ export const getProject = async (lang: 'en' | 'zh', slug) => {
     }
   }
 
-  const { users } = await getNotionUsers(project.TeamMembers || [])
-  project.TeamMembers = Object.keys(users).map(id => users[id].full_name)
+  const { users } = await getNotionUsers(project.Authors || [])
+  project.Authors = Object.keys(users).map(id => users[id].full_name)
 
   return project
 }

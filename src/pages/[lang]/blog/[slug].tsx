@@ -22,6 +22,20 @@ import { getPost } from '../../../lib/notion/getData'
 export async function getStaticProps({ params: { slug, lang }, preview }) {
   const post = await getPost(lang, slug)
 
+  // if we can't find the post or if it is unpublished and
+  // viewed without preview mode then we just redirect to /blog
+
+  if (!post || (post.Published !== 'Yes' && !preview)) {
+    console.log(`Failed to find post for slug: ${slug}`)
+    return {
+      props: {
+        redirect: `/${lang}/blog`,
+        preview: false,
+      },
+      unstable_revalidate: 5,
+    }
+  }
+
   return {
     props: {
       post,
@@ -59,7 +73,6 @@ const listTypes = new Set(['bulleted_list', 'numbered_list'])
 const RenderPost = ({ post, redirect, preview }) => {
   const router = useRouter()
   const { lang, slug } = router.query
-  // console.log(slug)
 
   let listTagName: string | null = null
   let listLastId: string | null = null

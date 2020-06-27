@@ -6,23 +6,6 @@ import { colors } from '../layouts/colors'
 import { testimonialsData } from '../../data/texts'
 import { Section } from '../layouts/globalStyles'
 
-const TestimonialContainer = styled.div`
-  position: relative;
-  display: flex;
-  padding: 60px 0;
-  width: auto;
-  background-color: #ffffff;
-  min-height: 650px;
-  flex-direction: row;
-  @media (max-width: 900px) {
-    padding: 60px 70px;
-  }
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-  }
-`
-
 const Testimonials = () => {
   return (
     <Section>
@@ -68,6 +51,23 @@ const TestimonialCard = props => (
     </div>
   </Item>
 )
+
+const TestimonialContainer = styled.div`
+  position: relative;
+  display: flex;
+  padding: 60px 0;
+  width: auto;
+  background-color: #ffffff;
+  min-height: 650px;
+  flex-direction: row;
+  @media (max-width: 900px) {
+    padding: 60px 70px;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
+`
 
 const Title = styled.div`
   position: relative;

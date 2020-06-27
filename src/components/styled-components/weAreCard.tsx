@@ -2,6 +2,24 @@ import styled from 'styled-components'
 import { colors } from '../layouts/colors'
 import ChatIcon from '../svgs/chat'
 
+const Card = ({ text }) => {
+  const maxLength = 220
+  const sentenceCutter = sentence =>
+    sentence.length > maxLength
+      ? sentence.substr(0, maxLength) + '...'
+      : sentence
+  return (
+    <CardWrapper>
+      <Icon>
+        <ChatIcon />
+      </Icon>
+      <CardDescription>{sentenceCutter(text)}</CardDescription>
+    </CardWrapper>
+  )
+}
+
+export default Card
+
 const CardWrapper = styled.div`
   position: relative;
   display: flex;
@@ -32,21 +50,3 @@ const Icon = styled.div`
   left: 19px;
   top: -43px;
 `
-
-const Card = ({ text }) => {
-  const maxLength = 220
-  const sentenceCutter = sentence =>
-    sentence.length > maxLength
-      ? sentence.substr(0, maxLength) + '...'
-      : sentence
-  return (
-    <CardWrapper>
-      <Icon>
-        <ChatIcon />
-      </Icon>
-      <CardDescription>{sentenceCutter(text)}</CardDescription>
-    </CardWrapper>
-  )
-}
-
-export default Card
