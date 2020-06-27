@@ -52,11 +52,11 @@ export async function getStaticPaths() {
 
   const paths = Object.keys(projectsTableEn)
     .filter(project => projectsTableEn[project].Published === 'Yes')
-    .map(slug => getBlogLink(slug, 'projects', 'en'))
+    .map(slug => getBlogLink('en', 'projects', slug))
     .concat(
       Object.keys(projectsTableZh)
         .filter(project => projectsTableZh[project].Published === 'Yes')
-        .map(slug => getBlogLink(slug, 'projects', 'zh'))
+        .map(slug => getBlogLink('zh', 'projects', slug))
     )
   // we fallback for any unpublished projects to save build time
   // for actually published ones

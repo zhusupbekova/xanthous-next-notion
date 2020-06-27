@@ -18,7 +18,7 @@ export interface IPost {
   Image: string
   Slug: string
   Featured: string | null
-  Tags: string
+  Tags: string | null
   Authors: string[]
   Page: string
   preview: any[]
@@ -63,7 +63,7 @@ export interface IProject {
   Image: string
   Slug: string
   // Featured: string | null
-  TechStack: string
+  TechStack: string | null
   Authors: string[]
   preview: any[]
 }

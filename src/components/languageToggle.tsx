@@ -1,7 +1,7 @@
 import React from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 import DoubleArrow from '../components/svgs/doubleArrow'
+import { LinkTo } from '../lib/linkTo'
 
 const Wrapper = styled.div`
   display: block;
@@ -26,14 +26,14 @@ export interface LanguageToggleProps {
 
 const LanguageToggle: React.FunctionComponent<LanguageToggleProps> = props => {
   return (
-    <Link href={`/${props.langKey === 'en' ? 'zh' : 'en'}${props.slug || ''}`}>
-      <a>
-        <Wrapper>
-          {props.langKey === 'en' ? '中文' : 'English'}
-          <DoubleArrow />
-        </Wrapper>
-      </a>
-    </Link>
+    <LinkTo
+      address={`/${props.langKey === 'en' ? 'zh' : 'en'}${props.slug || ''}`}
+    >
+      <Wrapper>
+        {props.langKey === 'en' ? '中文' : 'English'}
+        <DoubleArrow />
+      </Wrapper>
+    </LinkTo>
   )
 }
 

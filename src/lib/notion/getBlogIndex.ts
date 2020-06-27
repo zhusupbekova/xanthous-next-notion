@@ -6,7 +6,10 @@ import { getPostPreview } from './getPostPreview'
 import { readFile, writeFile } from '../fs-helpers'
 import { BLOG_INDEX_CACHE } from './server-constants'
 
-export default async function getBlogIndex(notionPageIndexId, previews = true) {
+export default async function getBlogIndex(
+  notionPageIndexId?,
+  previews = true
+) {
   let postsTable: any = null
   const useCache = process.env.USE_CACHE === 'true'
   const cacheFile = `${BLOG_INDEX_CACHE}${notionPageIndexId}${

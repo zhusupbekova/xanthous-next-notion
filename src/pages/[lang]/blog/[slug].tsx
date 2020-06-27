@@ -52,11 +52,11 @@ export async function getStaticPaths() {
 
   const paths = Object.keys(postsTableEn)
     .filter(post => postsTableEn[post].Published === 'Yes')
-    .map(slug => getBlogLink(slug, 'blog', 'en'))
+    .map(slug => getBlogLink('en', 'blog', slug))
     .concat(
       Object.keys(postsTableZh)
         .filter(post => postsTableZh[post].Published === 'Yes')
-        .map(slug => getBlogLink(slug, 'blog', 'zh'))
+        .map(slug => getBlogLink('zh', 'blog', slug))
     )
 
   // we fallback for any unpublished posts to save build time

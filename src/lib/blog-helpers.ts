@@ -1,4 +1,4 @@
-export const getBlogLink = (slug: string, page: string, lang: string) => {
+export const getBlogLink = (lang: string, page: string, slug: string) => {
   return `/${lang}/${page}/${slug}`
 }
 

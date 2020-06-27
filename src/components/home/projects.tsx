@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import Link from 'next/link'
 import Slider from 'react-slick'
 import { Section } from '../layouts/globalStyles'
 import t from '../../data/i18n'
 import { IProject } from '../../lib/notion/getData'
+import { getBlogLink } from '../../lib/blog-helpers'
+import { LinkTo } from '../../lib/linkTo'
 
 const ProjectHightlights: React.FC<{
   projects: IProject[]
@@ -49,11 +50,9 @@ const ProjectCard: React.FC<{ project: IProject; langKey: string }> = ({
   <div className="slider__item_to_bottom">
     <div className="slider__item_box">
       <div className="slider__item">
-        <Link href={`/${langKey}/projects/${project.Slug}`}>
-          <a>
-            <img className="slider__img" src={project.Image} />
-          </a>
-        </Link>
+        <LinkTo address={getBlogLink(langKey, 'projects', project.Slug)}>
+          <img className="slider__img" src={project.Image} />
+        </LinkTo>
       </div>
       <div className="slider__item_title">{project.Page}</div>
     </div>

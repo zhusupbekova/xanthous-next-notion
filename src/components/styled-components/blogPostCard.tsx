@@ -5,6 +5,8 @@ import { colors } from '../layouts/colors'
 import { textBlock } from '../../lib/notion/renderers'
 import { Tag } from './tag'
 import { IPost } from '../../lib/notion/getData'
+import { LinkTo } from '../../lib/linkTo'
+import { getBlogLink } from '../../lib/blog-helpers'
 
 const BlogPostCard: React.FC<{ post: IPost; langKey: string }> = ({
   post,
@@ -15,37 +17,34 @@ const BlogPostCard: React.FC<{ post: IPost; langKey: string }> = ({
 
   return (
     <PostCardWrapper>
-      <Link href={`/${langKey}/blog/${post.Slug}`}>
-        <a>
-          <PostCardImage>
-            <img
-              alt={`${post.Page} cover image`}
-              style={{ height: '100%', width: '100%' }}
-              src={post.Image} //Image src should be embedded, not uploaded
-            />
-          </PostCardImage>
-        </a>
-      </Link>
+      <LinkTo address={getBlogLink(langKey, 'blog', post.Slug)}>
+        <PostCardImage>
+          <img
+            alt={`${post.Page} cover image`}
+            style={{ height: '100%', width: '100%' }}
+            src={post.Image} //Image src should be embedded, not uploaded
+          />
+        </PostCardImage>
+      </LinkTo>
 
       <PostCardContent>
         <TagList>
-          {' '}
           {tags.map(tag => (
-            <Tag name={tag}>{tag}</Tag>
+            <Tag key={tag} name={tag}>
+              {tag}
+            </Tag>
           ))}
         </TagList>
 
-        <Link href={`/${langKey}/blog/${post.Slug}`}>
-          <a>
-            <PostCardTitle>{post.Page}</PostCardTitle>
-            <PostCardPreview>
-              {(!post.preview || post.preview.length === 0) && null}
-              {(post.preview || []).map((block, idx) =>
-                textBlock(block, true, `${post.Slug}${idx}`)
-              )}
-            </PostCardPreview>
-          </a>
-        </Link>
+        <LinkTo address={getBlogLink(langKey, 'blog', post.Slug)}>
+          <PostCardTitle>{post.Page}</PostCardTitle>
+          <PostCardPreview>
+            {(!post.preview || post.preview.length === 0) && null}
+            {(post.preview || []).map((block, idx) =>
+              textBlock(block, true, `${post.Slug}${idx}`)
+            )}
+          </PostCardPreview>
+        </LinkTo>
       </PostCardContent>
     </PostCardWrapper>
   )

@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { colors } from '../layouts/colors'
 import { techStackData } from '../../data/texts'
 import { IProject } from '../../lib/notion/getData'
+import { LinkTo } from '../../lib/linkTo'
 
 const ProjectCard: React.FC<{ project: IProject; lang: string }> = ({
   project,
@@ -15,12 +16,13 @@ const ProjectCard: React.FC<{ project: IProject; lang: string }> = ({
   const currTechStack = projectTechStack.map(tech =>
     techStackData.map(matchedStack =>
       matchedStack.id === tech ? (
-        <TechListItem>
-          <Link href={`/${lang}/about/${matchedStack.id}`}>
-            <StaticAvatar>
-              <TechImage src={matchedStack.logo} alt={matchedStack.id} />
-            </StaticAvatar>
-          </Link>
+        <TechListItem key={matchedStack.id}>
+          <LinkTo
+            address={`/${lang}/about/${matchedStack.id}`}
+            className="staticAvatar"
+          >
+            <TechImage src={matchedStack.logo} alt={matchedStack.id} />
+          </LinkTo>
         </TechListItem>
       ) : null
     )
@@ -28,21 +30,20 @@ const ProjectCard: React.FC<{ project: IProject; lang: string }> = ({
 
   return (
     <Card>
-      <Link href={`/${lang}/projects/${project.Slug}`}>
-        <a className="card-link">
-          <ProjectCardImage
-            alt={`${project.Page} cover image`}
-            src={project.Image}
-          />
-          <ProjectCardContent className="post-card-content">
-            <TechList>{_.flatten(currTechStack)}</TechList>
-            <ProjectCardTitle>{project.Page}</ProjectCardTitle>
-            <ProjectCardDescription>
-              {project.Description}
-            </ProjectCardDescription>
-          </ProjectCardContent>
-        </a>
-      </Link>
+      <ProjectCardImage
+        alt={`${project.Page} cover image`}
+        src={project.Image}
+      />
+      <ProjectCardContent className="post-card-content">
+        <TechList>{_.flatten(currTechStack)}</TechList>
+        <LinkTo
+          address={`/${lang}/projects/${project.Slug}`}
+          className="card-link"
+        >
+          <ProjectCardTitle>{project.Page}</ProjectCardTitle>
+          <ProjectCardDescription>{project.Description}</ProjectCardDescription>
+        </LinkTo>
+      </ProjectCardContent>
     </Card>
   )
 }
@@ -139,19 +140,31 @@ const TechListItem = styled.li`
   :hover {
     transform: translateY(0px);
   }
+
+  .staticAvatar {
+    display: block;
+    overflow: hidden;
+    margin: 0 0px;
+    width: 26px;
+    height: 26px;
+    margin: 0 2px;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 100%;
+  }
 `
 
-const StaticAvatar = styled.a`
-  display: block;
-  overflow: hidden;
-  margin: 0 0px;
-  width: 26px;
-  height: 26px;
-  margin: 0 2px;
-  border: 1px solid white;
-  background-color: white;
-  border-radius: 100%;
-`
+// const StaticAvatar = styled.a`
+//   display: block;
+//   overflow: hidden;
+//   margin: 0 0px;
+//   width: 26px;
+//   height: 26px;
+//   margin: 0 2px;
+//   border: 1px solid white;
+//   background-color: white;
+//   border-radius: 100%;
+// `
 
 const TechImage = styled.img`
   display: block;

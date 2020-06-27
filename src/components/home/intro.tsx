@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import styled from 'styled-components'
 
 import { Section } from '../layouts/globalStyles'
@@ -6,6 +5,7 @@ import { colors } from '../layouts/colors'
 import { Button } from '../styled-components/button'
 import t from '../../data/i18n'
 import bg from '../../data/img/bg_splash.png'
+import { LinkTo } from '../../lib/linkTo'
 
 const Intro = () => {
   return (
@@ -22,9 +22,9 @@ const Intro = () => {
         <Text>
           <p>{t['general.splash.intro-text']()}</p>
         </Text>
-        <Link href="/contact">
+        <LinkTo address="/contact">
           <Button>{t['general.splash.lets-chat']()}</Button>
-        </Link>
+        </LinkTo>
       </ImgWrapper>
     </Section>
   )

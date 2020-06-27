@@ -24,9 +24,7 @@ export default ({ projects = [], preview }) => {
               <b>Note:</b>
               {` `}Viewing in preview mode{' '}
               <Link href={`/api/clear-preview`}>
-                <button className={blogStyles.escapePreview}>
-                  Exit Preview
-                </button>
+                <a>Exit Preview</a>
               </Link>
             </div>
           </div>
@@ -42,7 +40,7 @@ export default ({ projects = [], preview }) => {
                 <h3>
                   <Link
                     href="/[lang]/projects/[slug]"
-                    as={getBlogLink(project.Slug, 'projects', lang as string)}
+                    as={getBlogLink(lang as string, 'projects', project.Slug)}
                   >
                     <div className={blogStyles.titleContainer}>
                       {!project.Published && (

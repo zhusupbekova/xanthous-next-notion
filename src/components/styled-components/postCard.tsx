@@ -1,8 +1,9 @@
-import Link from 'next/link'
 import * as _ from 'lodash'
 import styled from 'styled-components'
 import { colors } from '../layouts/colors'
 import { IPost } from '../../lib/notion/getData'
+import { LinkTo } from '../../lib/linkTo'
+import { getBlogLink } from '../../lib/blog-helpers'
 
 const PostCard: React.FC<{ post: IPost; langKey: string }> = ({
   post,
@@ -10,7 +11,7 @@ const PostCard: React.FC<{ post: IPost; langKey: string }> = ({
 }) => {
   return (
     <PostCardWrapper>
-      <Link href={`/${langKey}/blog/${post.Slug}`}>
+      <LinkTo address={getBlogLink(langKey, 'blog', post.Slug)}>
         <a>
           <PostCardImage>
             <img
@@ -20,14 +21,14 @@ const PostCard: React.FC<{ post: IPost; langKey: string }> = ({
             />
           </PostCardImage>
         </a>
-      </Link>
+      </LinkTo>
 
       <PostCardContent>
-        <Link href={`/${langKey}/blog/${post.Slug}`}>
+        <LinkTo address={getBlogLink(langKey, 'blog', post.Slug)}>
           <a>
             <PostCardTitle>{post.Page}</PostCardTitle>
           </a>
-        </Link>
+        </LinkTo>
       </PostCardContent>
     </PostCardWrapper>
   )

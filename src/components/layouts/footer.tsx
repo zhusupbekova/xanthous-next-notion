@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 import { colors } from './colors'
 import config from '../../data/config/website-config'
@@ -8,6 +7,7 @@ import Twitter from '../svgs/social/twitter'
 import Medium from '../svgs/social/medium'
 import GitHub from '../svgs/social/github'
 import RSS from '../svgs/social/rss'
+import { LinkTo } from '../../lib/linkTo'
 
 const SiteFooter = styled.footer`
   position: relative;
@@ -77,7 +77,8 @@ const Footer: React.FunctionComponent = () => {
     <SiteFooter>
       <Wrapper>
         <section>
-          <Link href="/">{config.title}</Link> &copy; {new Date().getFullYear()}
+          <LinkTo address="/">{config.title}</LinkTo> &copy;{' '}
+          {new Date().getFullYear()}
         </section>
         <SiteFooterNav>
           <SocialLinks>

@@ -13,6 +13,7 @@ import { getPosts, IPost } from '../../../lib/notion/getData'
 import styled from 'styled-components'
 import { authorsData } from '../../../data/texts'
 import BlogPostCard from '../../../components/styled-components/blogPostCard'
+import { LinkTo } from '../../../lib/linkTo'
 
 const Blog: React.FC<{ posts: IPost[]; preview: any }> = ({
   posts = [],
@@ -30,25 +31,32 @@ const Blog: React.FC<{ posts: IPost[]; preview: any }> = ({
       <MainWrapper>
         <Banner>
           <ImageWrapper>
-            <img src={featured.Image} alt={featured.Page} />
+            <LinkTo
+              address={getBlogLink(lang as string, 'blog', featured.Slug)}
+            >
+              <img src={featured.Image} alt={featured.Page} />
+            </LinkTo>
           </ImageWrapper>
 
           <FeaturedContainer>
-            <FeaturedTitle>{featured.Page}</FeaturedTitle>
-            <FeaturedPreview>
-              {(!featured.preview || featured.preview.length === 0) && null}
-              {(featured.preview || []).map((block, idx) =>
-                textBlock(block, true, `${featured.Slug}${idx}`)
-              )}
-            </FeaturedPreview>
+            <LinkTo
+              address={getBlogLink(lang as string, 'blog', featured.Slug)}
+            >
+              <FeaturedTitle>{featured.Page}</FeaturedTitle>
+              <FeaturedPreview>
+                {(!featured.preview || featured.preview.length === 0) && null}
+                {(featured.preview || []).map((block, idx) =>
+                  textBlock(block, true, `${featured.Slug}${idx}`)
+                )}
+              </FeaturedPreview>
+            </LinkTo>
             {authorsData.map(author =>
               author.name === featured.Authors.join(' ') ? (
-                <FeaturedAuthor>
+                <FeaturedAuthor key={author.id}>
                   <AuthorImage src={author.avatar} alt={author.id} />
                   <Author>
-                    <Link href="/">
-                      <a>{author.name}</a>
-                    </Link>
+                    //TODO link to author profile
+                    <LinkTo address="/">{author.name}</LinkTo>
                     <p>{featured.ReadTime}</p>
                   </Author>
                 </FeaturedAuthor>
@@ -58,7 +66,11 @@ const Blog: React.FC<{ posts: IPost[]; preview: any }> = ({
         </Banner>
         <BlogGrid>
           {rest.map(post => (
-            <BlogPostCard post={post} langKey={lang} />
+            <BlogPostCard
+              key={post.Slug}
+              post={post}
+              langKey={lang as string}
+            />
           ))}
         </BlogGrid>
       </MainWrapper>
@@ -167,7 +179,7 @@ const BlogGrid = styled.div`
 //       <h3>
 //         <Link
 //           href="/[lang]/blog/[slug]"
-//           as={getBlogLink(post.Slug, 'blog', lang as string)}
+//           as={getBlogLink(lang as string, 'blog', post.Slug)}
 //         >
 //           <div className={blogStyles.titleContainer}>
 //             {!post.Published && (

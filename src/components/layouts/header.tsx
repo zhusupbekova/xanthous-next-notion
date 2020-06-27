@@ -10,6 +10,7 @@ import t from '../../data/i18n'
 import { colors } from './colors'
 import LanguageToggle from '../languageToggle'
 import { XanthousLogo } from '../svgs/xanthousLogo'
+import { LinkTo } from '../../lib/linkTo'
 
 export default ({ titlePre, langKey, slug }) => {
   const { pathname } = useRouter()
@@ -34,20 +35,18 @@ export default ({ titlePre, langKey, slug }) => {
       <Wrapper>
         <SiteNavLeft>
           <SiteNavLogo>
-            <Link href={`/${linkPrefix}`}>
-              <a>
-                <XanthousLogo />
-              </a>
-            </Link>
+            <LinkTo address={`/${linkPrefix}`}>
+              <XanthousLogo />
+            </LinkTo>
           </SiteNavLogo>
         </SiteNavLeft>
         <SiteNavRight>
           <NavStyles>
             {navItems.map(({ label, page, exact }) => (
               <MenuItem key={label} current={currentSlug(exact, page)}>
-                <Link href={`/${linkPrefix}${page}`}>
-                  <a>{label}</a>
-                </Link>
+                <LinkTo address={`/${linkPrefix}${page}`}>
+                  {t[`${label}`]()}
+                </LinkTo>
               </MenuItem>
             ))}
             <li key="toggleLang">
@@ -61,11 +60,11 @@ export default ({ titlePre, langKey, slug }) => {
 }
 
 const navItems: { label: string; page: string; exact?: string }[] = [
-  { label: t['general.nav.home'](), page: '', exact: '/[lang]' },
-  { label: t['general.nav.projects'](), page: '/projects' },
-  { label: t['general.nav.blog'](), page: '/blog' },
-  { label: t['general.nav.about'](), page: '/about' },
-  { label: t['general.nav.contact'](), page: '/contact' },
+  { label: 'general.nav.home', page: '', exact: '/[lang]' },
+  { label: 'general.nav.projects', page: '/projects' },
+  { label: 'general.nav.blog', page: '/blog' },
+  { label: 'general.nav.about', page: '/about' },
+  { label: 'general.nav.contact', page: '/contact' },
 ]
 
 const SiteHeader = styled.header`

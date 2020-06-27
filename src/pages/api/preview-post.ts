@@ -36,6 +36,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.setPreviewData({})
-  res.writeHead(307, { Location: getBlogLink(post.Slug, lang as string) })
+  res.writeHead(307, {
+    Location: getBlogLink(lang as string, 'blog', post.Slug),
+  })
   res.end()
 }

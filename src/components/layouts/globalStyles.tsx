@@ -125,10 +125,13 @@ html {
 }
 a {
   background-color: transparent;
+  text-decoration: none;
 }
-a:active,
+/* a:active, */
 a:hover {
   outline: 0;
+  text-decoration: none;
+  
 }
 b,
 strong {
@@ -402,9 +405,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 h1,
 h2,
