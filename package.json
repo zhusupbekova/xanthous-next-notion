@@ -28,7 +28,7 @@
     "react-intl": "^4.6.9",
     "react-slick": "^0.26.1",
     "responsive-loader": "^1.2.0",
-    "sharp": "^0.25.4",
+    "sharp": "^0.30.5",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1",
     "yaml-js": "^0.2.3"
